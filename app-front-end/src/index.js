@@ -4,13 +4,13 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import StoreConfig from './Redux/store';
-import getVisableExpenses from './Redux/selector';
+import getVisableItem from './Redux/SelectorItem';
 
 const store = StoreConfig();
 
 const state = store.getState();
 
-const visable = getVisableExpenses(state.items, state.filter);
+const visable = getVisableItem(state.items, state.filter);
 
 console.log(visable);
 

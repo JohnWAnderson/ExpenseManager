@@ -3,21 +3,17 @@ import ItemForm from './ItemForm';
 import { UpdateItems, DeleteItem} from '../ApiMethods/Account';
 import { connect } from 'react-redux';
 import { editItem, removeItem} from '../Redux/Actions/Items';
-
+import NotFound from './NotFound';
 const EditPage = (props) =>{
     const item=props.User.items[props.match.params.id-1]
     if(!!item){
         const holder = item.name;
-        item.cost = item.cost;
-        //console.log(props.User.user.currentUser.username);
-        
         return(
             <div>
             <button onClick={()=>{
                 const newItem = ({...item, userName: props.User.user.currentUser.username})
                 DeleteItem(newItem).then(response => {          
                     if(response.available){
-                        console.log('yes');  
                         props.dispatch(removeItem({name: newItem.name}));    
                         props.history.push('/')  
                     }
@@ -27,8 +23,7 @@ const EditPage = (props) =>{
                     onSubmit={(item) => {
                         const newItem=({...item,oldName: holder})
                         UpdateItems(newItem).then(response => {
-                            if(response.available){
-                                console.log('yes');             
+                            if(response.available){          
                                 props.dispatch(editItem(holder,item)); 
                                 props.history.push('/')  
                             }
@@ -41,7 +36,7 @@ const EditPage = (props) =>{
      else{
         return(
             <div>
-                no
+                <NotFound/>
             </div>
         );
    }

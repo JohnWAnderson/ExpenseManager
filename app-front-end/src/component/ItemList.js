@@ -1,13 +1,13 @@
 import React from 'react';
 import Item from './Item';
 import { connect } from 'react-redux';
-import getVisableItem from '../Redux/selector';
+import getVisableItem from '../Redux/SelectorItem';
 
 const ItemList =(props)=>{
     return(
         <div>
-         { props.User.map((item,index)=>
-             <Item key={index} {...item} index={index+1}/>)}
+         {props.User.map((item,index)=>{
+            return(<Item key={index} {...item} index={index+1}/>)})}
         </div>
     );
 }
