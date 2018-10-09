@@ -82,24 +82,6 @@ public class ItemController {
         return (new AvailableResponse(avaliable));
     }
     
-    @GetMapping("/date")
-    @PreAuthorize("hasRole('USER')")
-    public PagedResponseObject<ItemResponseObject> GetDateItems(@CurrentUser UserObject currentUser, @RequestParam(value = "date") Date date){
-    	Optional<User> userOption = userRepository.findByUsername(currentUser.getName());
-		if(!userOption.isPresent()) 
-			throw (new ApiError("Didn't find User"));
-			
-		User theUser = userOption.get();
-		System.out.println(theUser.getItems());
-		List<ItemResponseObject> ItemConent = new ArrayList<ItemResponseObject>();
-		for(Item items: theUser.getItems()) {
-			if(items.getDuedate().equals(date))
-				ItemConent.add(new ItemResponseObject(items.getName(), items.getDescription(), items.getCost(), items.getDuedate()));
-		}
-		
-		return (new PagedResponseObject<ItemResponseObject>(ItemConent));
-    }
-    
     @GetMapping
     @PreAuthorize("hasRole('USER')")
     public PagedResponseObject<ItemResponseObject> GetItems(@CurrentUser UserObject currentUser){
@@ -110,8 +92,8 @@ public class ItemController {
 		User theUser = userOption.get();
 		System.out.println(theUser.getItems());
 		List<ItemResponseObject> ItemConent = new ArrayList<ItemResponseObject>();
-		for(Item items: theUser.getItems())
-			ItemConent.add(new ItemResponseObject(items.getName(), items.getDescription(), items.getCost(), items.getDuedate()));
+		for(Item item: theUser.getItems())
+			ItemConent.add(new ItemResponseObject(item.getName(), item.getDescription(), item.getCost(), item.getDuedate()));
 		
 		return (new PagedResponseObject<ItemResponseObject>(ItemConent));
     }

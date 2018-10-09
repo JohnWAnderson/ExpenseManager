@@ -26,7 +26,6 @@ class FilterPicker extends React.Component{
     render(){     
         return(
             <div>
-
             <select value={this.props.Filter.sortBy} onChange={(e) => {
                 if(e.target.value === 'date'){
                     this.props.dispatch(sortByDate());
@@ -46,7 +45,7 @@ class FilterPicker extends React.Component{
             focusedInput={this.state.CalFocuse}
             onFocusChange={this.onFocusChange}
             showClearDates={true}
-            numberOfMonths={1} 
+            numberOfMonths={2} 
             isOutsideRange={()=> false}/>
              </div>
         );
