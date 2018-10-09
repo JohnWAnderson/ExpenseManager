@@ -14,7 +14,7 @@ import { connect } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom'
 import { addUser, removeUser } from './Redux/Actions/Users';
 import { addItem, clearItems } from './Redux/Actions/Items';
-
+import { resetFilter } from './Redux/Actions/Filter';
 
 class App extends React.Component {
   constructor(props) {   
@@ -28,6 +28,7 @@ class App extends React.Component {
 handleLogOn=()=>{
   this.loadCurrentUser();
   this.loadItems();
+  console.log(this.props);
 }
 
   loadCurrentUser=()=> {
@@ -41,6 +42,7 @@ handleLogOn=()=>{
     localStorage.removeItem(ACCESS_TOKEN);
     this.props.dispatch(removeUser());
     this.props.dispatch(clearItems());
+    this.props.dispatch(resetFilter());
 }
 
 loadItems = () =>{
