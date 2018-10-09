@@ -84,16 +84,6 @@ export const CreateItem = (Item) => {
     );
 }
 
-export const GetItemsDates = (date) => {
-    if(!localStorage.getItem(ACCESS_TOKEN)) {
-        return Promise.reject("No access token set.");
-    }
-    return request({
-        url: API_BASE_URL + "/items/date?date="+date,
-        method: 'GET'
-    });
-}
-
 export const GetItems = () => {
     if(!localStorage.getItem(ACCESS_TOKEN)) {
         return Promise.reject("No access token set.");

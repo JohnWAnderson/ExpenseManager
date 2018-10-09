@@ -6,8 +6,6 @@ import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';
 
-const now = moment();
-
 class ItemForm extends React.Component{
     constructor(props){
         super(props);

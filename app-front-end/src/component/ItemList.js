@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import getVisableItem from '../Redux/selector';
 
 const ItemList =(props)=>{
-    console.log('prop', props);
     return(
         <div>
          { props.User.map((item,index)=>
@@ -14,7 +13,6 @@ const ItemList =(props)=>{
 }
 
 const MapInfo=(state)=>{
-    console.log(state.items, state.filter);
     
     return{
         User: getVisableItem(state.items, state.filter)

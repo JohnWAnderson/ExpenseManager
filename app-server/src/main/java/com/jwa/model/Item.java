@@ -98,5 +98,9 @@ public class Item {
 	public String toString() {
 		return "Item [name=" + name + ", description=" + description + ", cost=" + cost + ", duedate=" + duedate + "]";
 	}
+
+	public int compareTo(Date that) {
+		return this.duedate.compareTo(that);
+	}
 	
 }
