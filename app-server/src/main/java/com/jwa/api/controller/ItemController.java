@@ -1,6 +1,5 @@
 package com.jwa.api.controller;
 
-import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +43,10 @@ public class ItemController {
     @PostMapping
     @PreAuthorize("hasRole('USER')")
     public ApiResponseObject CreateItem(@Valid @RequestBody ItemRequestObject ItemRequest ) {
+    	if(ItemRequest.getCost() < 0) {
+    		throw (new ApiError("Can't have negitive cost"));
+    	}
+    	
 		Item item = new Item();
 		item.setName(ItemRequest.getName());
 		item.setCost(ItemRequest.getCost());
@@ -101,6 +104,9 @@ public class ItemController {
     @PutMapping
     @PreAuthorize("hasRole('USER')")
     public ApiResponseObject UpdateItem(@Valid @RequestBody ItemUpdateRequestObject itemUpdateRequest ) {
+    	if(itemUpdateRequest.getCost() < 0) {
+    		throw (new ApiError("Can't have negitive cost"));
+    	}   	
     	System.out.println(itemUpdateRequest);
     	List<Item> theTaskList = itemRepository.findTaskByUser(itemUpdateRequest.getOldName(), itemUpdateRequest.getUserName());
     	Item theItem = theTaskList.get(0);

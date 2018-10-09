@@ -20,7 +20,7 @@ export default (state = ItemsReducerDefault, action) => {
                 }
                 else{
                     return item;
-                };
+                }
             });
         case 'CLEAR_ITEMS':
             return state = ItemsReducerDefault;

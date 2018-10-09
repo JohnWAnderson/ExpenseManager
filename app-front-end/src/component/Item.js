@@ -6,7 +6,7 @@ const Item = (props) => (
     <Link to={`/edit/${props.index}`}>
     <h2>{props.name}</h2>
     </Link>
-     <p>{props.cost}</p> 
+     <p>${props.cost/100}</p> 
      <p>{props.description}</p>
      <p>{props.duedate}</p>
  </div>

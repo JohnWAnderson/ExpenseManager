@@ -33,8 +33,9 @@ class FilterPicker extends React.Component{
                 else if(e.target.value === 'amount'){
                     this.props.dispatch(sortByAmount());
                 }
-            }}><option value ="date">Date</option>
+            }}>
             <option value="amount">Amount</option>
+            <option value ="date">Date</option>
             </select>
             <DateRangePicker
             startDateId="start_date_input"

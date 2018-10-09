@@ -9,10 +9,13 @@ export default (items, {name, sortby, startDate, endDate}) =>{
         return startDateMatch && endDateMatch && nameMatch
     }).sort((a,b) => {
         if(sortby === 'date'){
-            return a.createdAt < b.createdAt ? 1 : -1;
+            return a.startDate < b.startDate ? 1 : -1;
         }
         else if (sortby === 'amount'){
-            return a.amount < b.amount ? 1 : -1;
+            return a.cost < b.cost ? 1 : -1;
+        }
+        else{
+            return 0;
         }
     });
 };

@@ -75,16 +75,22 @@ class ItemForm extends React.Component{
             }}));
         }
     }
-
+    2147483647
     CostChange = (e) =>{
         const cost = e.target.value;
-        if(!cost || cost.match(/^\d{1,}(\.\d{0,2})?$/)){
+        if(cost < 0.00 || cost > 21474836.45){
+            this.setState(() => ({cost: {
+                value: cost,
+                valid: false,
+                error:'Number size invalid'
+            }}));           
+        }
+        else if(!cost || cost.match(/^\d{1,}(\.\d{0,2})?$/))
             this.setState(() => ({cost: {
                 value: cost,
                 valid: true,
                 error:''
             }}));
-        }
         else{
         }
     }
@@ -117,6 +123,7 @@ class ItemForm extends React.Component{
             <br/>
             <label >Amount:</label>
             <input type = "number" placeholder="Amount" name = "Cost" id="cost" value = {this.state.cost.value} onChange = {this.CostChange} />
+            {!!this.state.cost.error && this.state.cost.error}
             <br/>
             <SingleDatePicker date ={this.state.duedate} onDateChange={this.onDateChange} focused = {this.state.CalFocuse} onFocusChange={this.onFocusChange} numberOfMonths={1} isOutsideRange={()=> false}/>
             <br/>
