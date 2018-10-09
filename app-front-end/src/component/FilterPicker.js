@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { DateRangePicker } from 'react-dates';
-import {setEndDate, setStartDate, sortByAmount, sortByDate} from '../Redux/Actions/Filter';
+import {setEndDate, setStartDate, sortByCost, sortByDate} from '../Redux/Actions/Filter';
 import moment from 'moment';
 
 class FilterPicker extends React.Component{
@@ -30,11 +30,11 @@ class FilterPicker extends React.Component{
                 if(e.target.value === 'date'){
                     this.props.dispatch(sortByDate());
                 }
-                else if(e.target.value === 'amount'){
-                    this.props.dispatch(sortByAmount());
+                else if(e.target.value === 'cost'){
+                    this.props.dispatch(sortByCost());
                 }
             }}>
-            <option value="amount">Amount</option>
+            <option value="cost">cost</option>
             <option value ="date">Date</option>
             </select>
             <DateRangePicker

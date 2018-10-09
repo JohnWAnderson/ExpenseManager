@@ -11,7 +11,7 @@ export default (items, {name, sortby, startDate, endDate}) =>{
         if(sortby === 'date'){
             return a.startDate < b.startDate ? 1 : -1;
         }
-        else if (sortby === 'amount'){
+        else if (sortby === 'cost'){
             return a.cost < b.cost ? 1 : -1;
         }
         else{

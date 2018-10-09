@@ -3,8 +3,8 @@ export const setNameFilter = (name = '') =>({
     name
 });
 
-export const sortByAmount = () =>({
-    type: 'SORT_BY_AMOUNT'
+export const sortByCost = () =>({
+    type: 'SORT_BY_COST'
 });
 
 export const sortByDate = () =>({
