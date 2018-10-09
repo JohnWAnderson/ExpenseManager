@@ -1,9 +1,10 @@
 import React from 'react';
-import {GetItems} from '../ApiMethods/Account';
 import Item from './Item';
 import { connect } from 'react-redux';
+import getVisableItem from '../Redux/selector';
 
 const ItemList =(props)=>{
+    console.log('prop', props);
     return(
         <div>
          { props.User.map((item,index)=>
@@ -13,8 +14,10 @@ const ItemList =(props)=>{
 }
 
 const MapInfo=(state)=>{
+    console.log(state.items, state.filter);
+    
     return{
-        User: state.items
+        User: getVisableItem(state.items, state.filter)
     }
 }
 

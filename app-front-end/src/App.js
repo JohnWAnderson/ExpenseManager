@@ -14,8 +14,8 @@ import { connect } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom'
 import { addUser, removeUser } from './Redux/Actions/Users';
 import { addItem, clearItems } from './Redux/Actions/Items';
-
-
+import { resetFilter } from './Redux/Actions/Filter';
+import DatePicker from './component/DatePicker'
 class App extends React.Component {
   constructor(props) {   
     super(props);  
@@ -41,6 +41,7 @@ handleLogOn=()=>{
     localStorage.removeItem(ACCESS_TOKEN);
     this.props.dispatch(removeUser());
     this.props.dispatch(clearItems());
+    this.props.dispatch(resetFilter());
 }
 
 loadItems = () =>{
@@ -57,7 +58,7 @@ loadItems = () =>{
         <div>
             <Header handleLogOut= {this.handleLogOut}/>
             <Switch>
-                <Route path="/" component = {DashBoard} exact={true}/>
+                <Route path="/" component = {DatePicker} exact={true}/>
                 <Route path="/signup" component= {Signup} exact={true}/>
                 <Route path="/login" component= {(props) =><Login {...props} handleLogOn={this.handleLogOn}/>}  exact={true}/> 
                 <Route path="/edit/:id" component= {EditPage}/>
