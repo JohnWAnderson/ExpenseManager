@@ -1,5 +1,4 @@
 import React from 'react';
-import {GetItems} from '../ApiMethods/Account';
 import Item from './Item';
 import { connect } from 'react-redux';
 

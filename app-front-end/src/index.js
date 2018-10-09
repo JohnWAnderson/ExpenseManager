@@ -10,8 +10,6 @@ const store = StoreConfig();
 
 const state = store.getState();
 
-console.log(state);
-
 const visable = getVisableExpenses(state.items, state.filter);
 
 console.log(visable);

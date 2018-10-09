@@ -9,7 +9,7 @@ const EditPage = (props) =>{
     if(!!item){
         const holder = item.name;
         item.cost = item.cost;
-        console.log(props.User.user.currentUser.username);
+        //console.log(props.User.user.currentUser.username);
         
         return(
             <div>

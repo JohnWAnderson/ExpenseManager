@@ -1,9 +1,8 @@
 import React from 'react';
 import ItemList from './ItemList';
 import { connect } from 'react-redux';
-import { SingleDatePicker } from 'react-dates';
-
-const DashBoard = (props) =>{
+import FilterPicker from './FilterPicker';
+const DatePicker = (props) =>{
     return(
         <div>
         {(!props.User.isAuthenticated) &&
@@ -12,6 +11,7 @@ const DashBoard = (props) =>{
             </div> } 
         {(props.User.isAuthenticated) &&
             <div>
+                <FilterPicker/>
                 <ItemList/>
             </div> } 
         </div>
@@ -23,4 +23,4 @@ const MapUserInfo=(state)=>{
     }
 }
 
-export default connect(MapUserInfo)(DashBoard);
+export default connect(MapUserInfo)(DatePicker);
