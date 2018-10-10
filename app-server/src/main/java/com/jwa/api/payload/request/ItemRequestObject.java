@@ -1,9 +1,14 @@
 package com.jwa.api.payload.request;
 
 import java.sql.Date;
+
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import com.jwa.model.RecurringType;
 
 public class ItemRequestObject {
 	@NotBlank
@@ -21,6 +26,12 @@ public class ItemRequestObject {
     
     @NotNull
     private Date duedate;
+    
+    @NotNull
+    private boolean recurring;
+    
+    @Enumerated(EnumType.STRING)
+    private RecurringType recurringsize;
 
 	public String getName() {
 		return name;
@@ -62,4 +73,27 @@ public class ItemRequestObject {
 		this.userName = userName;
 	}
 
+	public boolean isRecurring() {
+		return recurring;
+	}
+
+	public void setRecurring(boolean recurring) {
+		this.recurring = recurring;
+	}
+
+	public RecurringType getRecurringsize() {
+		return recurringsize;
+	}
+
+	public void setRecurringsize(RecurringType recurringsize) {
+		this.recurringsize = recurringsize;
+	}
+
+	@Override
+	public String toString() {
+		return "ItemRequestObject [name=" + name + ", description=" + description + ", cost=" + cost + ", userName="
+				+ userName + ", duedate=" + duedate + ", recurring=" + recurring + ", recurringsize=" + recurringsize
+				+ "]";
+	}
+	
 }

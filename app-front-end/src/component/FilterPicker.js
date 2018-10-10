@@ -27,15 +27,15 @@ class FilterPicker extends React.Component{
         return(
             <div>
             <select value={this.props.Filter.sortBy} onChange={(e) => {
-                if(e.target.value === 'date'){
-                    this.props.dispatch(sortByDate());
-                }
-                else if(e.target.value === 'cost'){
-                    this.props.dispatch(sortByCost());
-                }
-            }}>
-            <option value="cost">cost</option>
-            <option value ="date">Date</option>
+                    if(e.target.value === 'date'){
+                        this.props.dispatch(sortByDate());
+                    }
+                    else if(e.target.value === 'cost'){
+                        this.props.dispatch(sortByCost());
+                    }
+                }}>
+                <option value="cost">cost</option>
+                <option value ="date">Date</option>
             </select>
             <DateRangePicker
             startDateId="start_date_input"

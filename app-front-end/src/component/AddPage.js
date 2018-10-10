@@ -10,6 +10,8 @@ const AddPage = (props) =>{
     <h1>add expense</h1>
     <ItemForm
         onSubmit={(item) => {
+            console.log(item);
+            
             CreateItem(item).then(response => {
                  if(response.available){
                     props.dispatch(addItem(item))

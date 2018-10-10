@@ -1,16 +1,25 @@
 package com.jwa.model;
 
 import java.sql.Date;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
+import org.hibernate.annotations.NaturalId;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.jwa.model.User;
@@ -35,20 +44,29 @@ public class Item {
     @NotNull
     private Date duedate;
     
+    @NotNull
+    private boolean recurring;
+    
+    @Enumerated(EnumType.STRING)
+    @Column(length = 10)
+    private RecurringType recurringsize;
+    
 	@ManyToOne
 	@JoinColumn(name = "user_id")
     @JsonBackReference
 	private User user;
 	
 	public Item() {}
-	
-	public Item(String name, String description,int cost,Date duedate) {
-		super();
+
+	public Item(String name,String description,int cost, Date duedate,boolean recurring, RecurringType recurringsize) {
 		this.name = name;
 		this.description = description;
 		this.cost = cost;
 		this.duedate = duedate;
+		this.recurring = recurring;
+		this.recurringsize = recurringsize;
 	}
+
 
 	public int getId() {
 		return id;
@@ -94,9 +112,26 @@ public class Item {
 		this.duedate = duedate;
 	}
 
+	public boolean isRecurring() {
+		return recurring;
+	}
+
+	public void setRecurring(boolean recurring) {
+		this.recurring = recurring;
+	}
+
+	public RecurringType getRecurringsize() {
+		return recurringsize;
+	}
+
+	public void setRecurringsize(RecurringType recurringsize) {
+		this.recurringsize = recurringsize;
+	}
+
 	@Override
 	public String toString() {
-		return "Item [name=" + name + ", description=" + description + ", cost=" + cost + ", duedate=" + duedate + "]";
+		return "Item [name=" + name + ", description=" + description + ", cost=" + cost + ", duedate=" + duedate
+				+ ", recurring=" + recurring + ", recurringsize=" + recurringsize + "]";
 	}
-	
+
 }

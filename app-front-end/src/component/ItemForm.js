@@ -26,20 +26,24 @@ class ItemForm extends React.Component{
                 error:''
             },
             duedate: props.item? moment(props.item.duedate) : moment(),
+            recurring: props.item? props.item.recurring : false ,
+            recurringsize: props.item? props.item.recurringsize : "none",
             CalFocuse: false
         }
         this.onSubmit = this.onSubmit.bind(this);
     }
 
     onSubmit= (e) => {
-        e.preventDefault();       
+        e.preventDefault();      
         if(this.state.name.valid || this.state.cost.valid || !!this.state.description.value){
             this.props.onSubmit ({
                 "name":  this.state.name.value,
                 "cost": this.state.cost.value*100,
                 "description":this.state.description.value,
                 "userName": this.props.User.username,
-                "duedate": this.state.duedate.format("YYYY-MM-DD")
+                "duedate": this.state.duedate.format("YYYY-MM-DD"),
+                "recurring": this.state.recurring,
+                "recurringsize": this.state.recurringsize
             });
         }
     }
@@ -114,6 +118,14 @@ class ItemForm extends React.Component{
         }))
     }
 
+    handleRecurringChange=(recurring)=>{
+        this.setState(()=>({recurring}))
+    }
+
+    handlerecurringsizeChange=(recurringsize)=>{
+        this.setState(()=>({recurringsize}))
+    }
+
     render= () =>(
         <div>
             <form  onSubmit= {this.onSubmit}>
@@ -121,8 +133,8 @@ class ItemForm extends React.Component{
             <input type = "text" placeholder="Name" name = "Name"  id="name" value = {this.state.name.value} onChange = {this.NameChange} /> 
             {!!this.state.name.error && this.state.name.error}
             <br/>
-            <label >Amount:</label>
-            <input type = "number" placeholder="Amount" name = "Cost" id="cost" value = {this.state.cost.value} onChange = {this.CostChange} />
+            <label >Cost:</label>
+            <input type = "number" placeholder="Cost" name = "Cost" id="cost" value = {this.state.cost.value} onChange = {this.CostChange} />
             {!!this.state.cost.error && this.state.cost.error}
             <br/>
             <SingleDatePicker date ={this.state.duedate} onDateChange={this.onDateChange} focused = {this.state.CalFocuse} onFocusChange={this.onFocusChange} numberOfMonths={1} isOutsideRange={()=> false}/>
@@ -130,6 +142,42 @@ class ItemForm extends React.Component{
             <label >description:</label>
             <input type = "text" name = "Description"  id= "description" value = {this.state.description.value} onChange = {this.descriptionChange} placeholder="description (Optional)"/>      
             <br/>   
+            <label >Is this cost Recurring:</label>
+            <select value={this.state.recurring} onChange={(e) => {     
+                if(e.target.value === 'true'){
+                    this.handleRecurringChange(true); 
+                    this.handlerecurringsizeChange('daily');
+                }
+                else if(e.target.value === 'false'){
+                    this.handleRecurringChange(false);
+                    this.handlerecurringsizeChange('none');
+                }
+            }}>>
+                <option value='true'>yes</option>
+                <option value = 'false'>no</option>
+            </select>
+            {this.state.recurring && <div> 
+                <select value={this.state.recurringsize} onChange={(e) => {     
+                    if(e.target.value === 'weekly'){
+                        this.handlerecurringsizeChange('weekly');                 
+                    }
+                    else if(e.target.value === 'biweekly'){
+                        this.handlerecurringsizeChange('biweekly');
+                    }
+                    else if(e.target.value === 'monthly'){
+                        this.handlerecurringsizeChange('monthly');
+                    }
+                    else if(e.target.value === 'daily'){
+                        this.handlerecurringsizeChange('daily');
+                    }
+                }}>>
+                    <option value = 'daily'>daily</option>
+                    <option value = 'weekly'>weekly</option>
+                    <option value = 'biweekly'>bi-weekly</option>
+                    <option value = 'monthly'>monthly</option>
+                </select>     
+                </div>}
+            <br/>
             <button className= "button">Submit</button>
             </form>
         </div>

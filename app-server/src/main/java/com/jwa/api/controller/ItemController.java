@@ -46,12 +46,15 @@ public class ItemController {
     	if(ItemRequest.getCost() < 0) {
     		throw (new ApiError("Can't have negitive cost"));
     	}
+    	System.out.println(ItemRequest);
     	
 		Item item = new Item();
 		item.setName(ItemRequest.getName());
 		item.setCost(ItemRequest.getCost());
 		item.setDescription(ItemRequest.getDescription());
 		item.setDuedate(ItemRequest.getDuedate());
+		item.setRecurring(ItemRequest.isRecurring());
+		item.setRecurringsize(ItemRequest.getRecurringsize());
 		Optional<User> userOption = userRepository.findByUsername(ItemRequest.getUserName());
 		if(!userOption.isPresent())
 			throw (new ApiError("Didn't find User"));
@@ -96,7 +99,7 @@ public class ItemController {
 		System.out.println(theUser.getItems());
 		List<ItemResponseObject> ItemConent = new ArrayList<ItemResponseObject>();
 		for(Item item: theUser.getItems())
-			ItemConent.add(new ItemResponseObject(item.getName(), item.getDescription(), item.getCost(), item.getDuedate()));
+			ItemConent.add(new ItemResponseObject(item.getName(), item.getDescription(), item.getCost(), item.getDuedate(), item.isRecurring(), item.getRecurringsize()));
 		
 		return (new PagedResponseObject<ItemResponseObject>(ItemConent));
     }
@@ -114,6 +117,8 @@ public class ItemController {
     	theItem.setDescription(itemUpdateRequest.getDescription());
     	theItem.setName(itemUpdateRequest.getName());
     	theItem.setDuedate(itemUpdateRequest.getDuedate());
+    	theItem.setRecurring(itemUpdateRequest.isRecurring());
+    	theItem.setRecurringsize(itemUpdateRequest.getRecurringsize());
     	itemRepository.save(theItem);
 		return (new ApiResponseObject(true, "item updated Successfully"));
     }

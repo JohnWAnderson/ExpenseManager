@@ -2,19 +2,26 @@ package com.jwa.api.payload.response;
 
 import java.sql.Date;
 
+import com.jwa.model.RecurringType;
+
 public class ItemResponseObject {
 	private String name;
 	private String description;
 	private int cost;   
     private Date duedate;
+    private boolean recurring;
+    private RecurringType recurringsize;  
     
     public ItemResponseObject() {}
     
-	public ItemResponseObject(String name,String description,int cost, Date duedate) {
+	public ItemResponseObject(String name, String description, int cost, Date duedate, boolean recurring, RecurringType recurringsize) {
+		super();
 		this.name = name;
 		this.description = description;
 		this.cost = cost;
 		this.duedate = duedate;
+		this.recurring = recurring;
+		this.recurringsize = recurringsize;
 	}
 
 	public String getName() {
@@ -48,8 +55,21 @@ public class ItemResponseObject {
 	public void setDuedate(Date duedate) {
 		this.duedate = duedate;
 	}
-	
-	
-    
-    
+
+	public boolean isRecurring() {
+		return recurring;
+	}
+
+	public void setRecurring(boolean recurring) {
+		this.recurring = recurring;
+	}
+
+	public RecurringType getRecurringsize() {
+		return recurringsize;
+	}
+
+	public void setRecurringsize(RecurringType recurringsize) {
+		this.recurringsize = recurringsize;
+	}
+
 }
