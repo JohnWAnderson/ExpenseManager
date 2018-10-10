@@ -32,6 +32,8 @@ public class ItemRequestObject {
     
     @Enumerated(EnumType.STRING)
     private RecurringType recurringsize;
+    
+    private Date endrecurring;
 
 	public String getName() {
 		return name;
@@ -89,11 +91,18 @@ public class ItemRequestObject {
 		this.recurringsize = recurringsize;
 	}
 
+	public Date getEndrecurring() {
+		return endrecurring;
+	}
+
+	public void setEndrecurring(Date endrecurring) {
+		this.endrecurring = endrecurring;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemRequestObject [name=" + name + ", description=" + description + ", cost=" + cost + ", userName="
 				+ userName + ", duedate=" + duedate + ", recurring=" + recurring + ", recurringsize=" + recurringsize
-				+ "]";
+				+ ", endrecurring=" + endrecurring + "]";
 	}
-	
 }

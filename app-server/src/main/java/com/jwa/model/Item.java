@@ -51,6 +51,8 @@ public class Item {
     @Column(length = 10)
     private RecurringType recurringsize;
     
+    private Date endrecurring;
+    
 	@ManyToOne
 	@JoinColumn(name = "user_id")
     @JsonBackReference
@@ -58,13 +60,14 @@ public class Item {
 	
 	public Item() {}
 
-	public Item(String name,String description,int cost, Date duedate,boolean recurring, RecurringType recurringsize) {
+	public Item(String name,String description,int cost, Date duedate,boolean recurring, RecurringType recurringsize, Date endrecurring) {
 		this.name = name;
 		this.description = description;
 		this.cost = cost;
 		this.duedate = duedate;
 		this.recurring = recurring;
 		this.recurringsize = recurringsize;
+		this.endrecurring = endrecurring;
 	}
 
 
@@ -126,6 +129,14 @@ public class Item {
 
 	public void setRecurringsize(RecurringType recurringsize) {
 		this.recurringsize = recurringsize;
+	}
+	
+	public Date getEndrecurring() {
+		return endrecurring;
+	}
+
+	public void setEndrecurring(Date endrecurring) {
+		this.endrecurring = endrecurring;
 	}
 
 	@Override

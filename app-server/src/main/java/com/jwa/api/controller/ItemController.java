@@ -55,6 +55,7 @@ public class ItemController {
 		item.setDuedate(ItemRequest.getDuedate());
 		item.setRecurring(ItemRequest.isRecurring());
 		item.setRecurringsize(ItemRequest.getRecurringsize());
+		item.setEndrecurring(ItemRequest.getEndrecurring());
 		Optional<User> userOption = userRepository.findByUsername(ItemRequest.getUserName());
 		if(!userOption.isPresent())
 			throw (new ApiError("Didn't find User"));
@@ -99,7 +100,7 @@ public class ItemController {
 		System.out.println(theUser.getItems());
 		List<ItemResponseObject> ItemConent = new ArrayList<ItemResponseObject>();
 		for(Item item: theUser.getItems())
-			ItemConent.add(new ItemResponseObject(item.getName(), item.getDescription(), item.getCost(), item.getDuedate(), item.isRecurring(), item.getRecurringsize()));
+			ItemConent.add(new ItemResponseObject(item.getName(), item.getDescription(), item.getCost(), item.getDuedate(), item.isRecurring(), item.getRecurringsize(), item.getEndrecurring()));
 		
 		return (new PagedResponseObject<ItemResponseObject>(ItemConent));
     }
@@ -119,6 +120,7 @@ public class ItemController {
     	theItem.setDuedate(itemUpdateRequest.getDuedate());
     	theItem.setRecurring(itemUpdateRequest.isRecurring());
     	theItem.setRecurringsize(itemUpdateRequest.getRecurringsize());
+    	theItem.setEndrecurring(itemUpdateRequest.getEndrecurring());
     	itemRepository.save(theItem);
 		return (new ApiResponseObject(true, "item updated Successfully"));
     }

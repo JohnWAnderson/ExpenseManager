@@ -28,7 +28,9 @@ class ItemForm extends React.Component{
             duedate: props.item? moment(props.item.duedate) : moment(),
             recurring: props.item? props.item.recurring : false ,
             recurringsize: props.item? props.item.recurringsize : "none",
-            CalFocuse: false
+            endrecurring: props.item? moment(props.item.endrecurring) : moment().add(1, 'M'),
+            CalFocuse: false,
+            RecFocuse: false
         }
         this.onSubmit = this.onSubmit.bind(this);
     }
@@ -43,7 +45,8 @@ class ItemForm extends React.Component{
                 "userName": this.props.User.username,
                 "duedate": this.state.duedate.format("YYYY-MM-DD"),
                 "recurring": this.state.recurring,
-                "recurringsize": this.state.recurringsize
+                "recurringsize": this.state.recurringsize,
+                "endrecurring": this.state.endrecurring.format("YYYY-MM-DD")
             });
         }
     }
@@ -126,6 +129,18 @@ class ItemForm extends React.Component{
         this.setState(()=>({recurringsize}))
     }
 
+    onEndRecurringChange = (endrecurring)=>{
+        this.setState(()=>({
+            endrecurring: endrecurring
+        }))
+    }
+
+    onRecFocuseChange = (focused)=>{
+        this.setState(()=>({
+            RecFocuse: focused.focused
+        }))
+    }
+
     render= () =>(
         <div>
             <form  onSubmit= {this.onSubmit}>
@@ -175,7 +190,8 @@ class ItemForm extends React.Component{
                     <option value = 'weekly'>weekly</option>
                     <option value = 'biweekly'>bi-weekly</option>
                     <option value = 'monthly'>monthly</option>
-                </select>     
+                </select>
+                <SingleDatePicker date ={this.state.endrecurring} onDateChange={this.onEndRecurringChange} focused = {this.state.RecFocuse} onFocusChange={this.onRecFocuseChange} numberOfMonths={1} isOutsideRange={()=> false}/>     
                 </div>}
             <br/>
             <button className= "button">Submit</button>

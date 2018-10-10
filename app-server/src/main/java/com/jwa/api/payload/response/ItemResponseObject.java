@@ -11,10 +11,11 @@ public class ItemResponseObject {
     private Date duedate;
     private boolean recurring;
     private RecurringType recurringsize;  
+    private Date endrecurring;
     
     public ItemResponseObject() {}
     
-	public ItemResponseObject(String name, String description, int cost, Date duedate, boolean recurring, RecurringType recurringsize) {
+	public ItemResponseObject(String name, String description, int cost, Date duedate, boolean recurring, RecurringType recurringsize, Date endrecurring) {
 		super();
 		this.name = name;
 		this.description = description;
@@ -22,6 +23,7 @@ public class ItemResponseObject {
 		this.duedate = duedate;
 		this.recurring = recurring;
 		this.recurringsize = recurringsize;
+		this.endrecurring = endrecurring;
 	}
 
 	public String getName() {
@@ -71,5 +73,22 @@ public class ItemResponseObject {
 	public void setRecurringsize(RecurringType recurringsize) {
 		this.recurringsize = recurringsize;
 	}
+
+	public Date getEndrecurring() {
+		return endrecurring;
+	}
+
+	public void setEndrecurring(Date endrecurring) {
+		this.endrecurring = endrecurring;
+	}
+
+	@Override
+	public String toString() {
+		return "ItemResponseObject [name=" + name + ", description=" + description + ", cost=" + cost + ", duedate="
+				+ duedate + ", recurring=" + recurring + ", recurringsize=" + recurringsize + ", endrecurring="
+				+ endrecurring + "]";
+	}
+	
+	
 
 }
