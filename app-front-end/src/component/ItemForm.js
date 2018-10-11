@@ -28,7 +28,8 @@ class ItemForm extends React.Component{
             duedate: props.item? moment(props.item.duedate) : moment(),
             recurring: props.item? props.item.recurring : false ,
             recurringsize: props.item? props.item.recurringsize : "none",
-            endrecurring: props.item? moment(props.item.endrecurring) : moment().add(1, 'M'),
+            enddate: props.item? props.item.enddate : false,
+            endrecurring: props.item? moment(props.item.endrecurring) : null,
             CalFocuse: false,
             RecFocuse: false
         }
@@ -36,7 +37,7 @@ class ItemForm extends React.Component{
     }
 
     onSubmit= (e) => {
-        e.preventDefault();      
+        e.preventDefault();         
         if(this.state.name.valid || this.state.cost.valid || !!this.state.description.value){
             this.props.onSubmit ({
                 "name":  this.state.name.value,
@@ -46,7 +47,8 @@ class ItemForm extends React.Component{
                 "duedate": this.state.duedate.format("YYYY-MM-DD"),
                 "recurring": this.state.recurring,
                 "recurringsize": this.state.recurringsize,
-                "endrecurring": this.state.endrecurring.format("YYYY-MM-DD")
+                "enddate": this.state.enddate,
+                "endrecurring": (this.state.endrecurring === null)? null :this.state.endrecurring.format("YYYY-MM-DD")
             });
         }
     }
@@ -141,6 +143,10 @@ class ItemForm extends React.Component{
         }))
     }
 
+    handleEndDateChange = (enddate) =>{
+        this.setState(()=>({enddate}))
+    }
+
     render= () =>(
         <div>
             <form  onSubmit= {this.onSubmit}>
@@ -161,7 +167,6 @@ class ItemForm extends React.Component{
             <select value={this.state.recurring} onChange={(e) => {     
                 if(e.target.value === 'true'){
                     this.handleRecurringChange(true); 
-                    this.handlerecurringsizeChange('daily');
                 }
                 else if(e.target.value === 'false'){
                     this.handleRecurringChange(false);
@@ -191,7 +196,23 @@ class ItemForm extends React.Component{
                     <option value = 'biweekly'>bi-weekly</option>
                     <option value = 'monthly'>monthly</option>
                 </select>
-                <SingleDatePicker date ={this.state.endrecurring} onDateChange={this.onEndRecurringChange} focused = {this.state.RecFocuse} onFocusChange={this.onRecFocuseChange} numberOfMonths={1} isOutsideRange={()=> false}/>     
+                <br/>
+                <select value={this.state.enddate} onChange={(e) => {     
+                    if(e.target.value === 'true'){
+                        this.handleEndDateChange(true); 
+                        this.onEndRecurringChange(moment().add(1, 'M'))
+                    }
+                    else if(e.target.value === 'false'){
+                        this.handleEndDateChange(false);
+                        this.onEndRecurringChange(null)
+                    }
+                }}>>
+                    <option value = 'false'>no</option>
+                    <option value='true'>yes</option>
+                </select>
+                {console.log(this.state.enddate)}
+                {this.state.enddate && 
+                    <SingleDatePicker date ={this.state.endrecurring} onDateChange={this.onEndRecurringChange} focused = {this.state.RecFocuse} onFocusChange={this.onRecFocuseChange} numberOfMonths={1} isOutsideRange={()=> false}/> }    
                 </div>}
             <br/>
             <button className= "button">Submit</button>

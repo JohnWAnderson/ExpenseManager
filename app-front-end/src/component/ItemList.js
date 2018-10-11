@@ -7,6 +7,7 @@ const ItemList =(props)=>{
     return(
         <div>
          {props.User.map((item,index)=>{
+             {console.log(item)}
             return(<Item key={index} {...item} index={index+1}/>)})}
         </div>
     );

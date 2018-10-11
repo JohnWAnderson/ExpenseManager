@@ -33,7 +33,33 @@ public class ItemRequestObject {
     @Enumerated(EnumType.STRING)
     private RecurringType recurringsize;
     
+    private boolean enddate;
+    
     private Date endrecurring;
+    
+    public ItemRequestObject() {}
+    
+	public ItemRequestObject(String name, String description, int cost, Date duedate, boolean recurring,
+			RecurringType recurringsize, boolean enddate, Date endrecurring) {
+			this.name = name;
+			this.description = description;
+			this.cost = cost;
+			this.duedate = duedate;
+			this.recurring = recurring;
+			this.recurringsize = recurringsize;
+			this.enddate = enddate;
+			this.endrecurring = endrecurring;
+	}
+	public ItemRequestObject(ItemUpdateRequestObject changeRequest) {
+		this.name = changeRequest.getOldName();
+		this.description = changeRequest.getDescription();
+		this.cost = changeRequest.getCost();
+		this.duedate = changeRequest.getDuedate();
+		this.recurring = changeRequest.isRecurring();
+		this.recurringsize = changeRequest.getRecurringsize();
+		this.enddate = changeRequest.isEnddate();
+		this.endrecurring = changeRequest.getEndrecurring();
+	}
 
 	public String getName() {
 		return name;
@@ -91,6 +117,14 @@ public class ItemRequestObject {
 		this.recurringsize = recurringsize;
 	}
 
+	public boolean isEnddate() {
+		return enddate;
+	}
+
+	public void setEnddate(boolean enddate) {
+		this.enddate = enddate;
+	}
+
 	public Date getEndrecurring() {
 		return endrecurring;
 	}
@@ -103,6 +137,7 @@ public class ItemRequestObject {
 	public String toString() {
 		return "ItemRequestObject [name=" + name + ", description=" + description + ", cost=" + cost + ", userName="
 				+ userName + ", duedate=" + duedate + ", recurring=" + recurring + ", recurringsize=" + recurringsize
-				+ ", endrecurring=" + endrecurring + "]";
+				+ ", enddate=" + enddate + ", endrecurring=" + endrecurring + "]";
 	}
+
 }

@@ -12,16 +12,18 @@ const EditPage = (props) =>{
             <div>
             <button onClick={()=>{
                 const newItem = ({...item, userName: props.User.user.currentUser.username})
-                DeleteItem(newItem).then(response => {          
+                DeleteItem(newItem).then(response => {        
                     if(response.available){
                         props.dispatch(removeItem({name: newItem.name}));    
                         props.history.push('/')  
                     }
                 });
             }}>Remove</button>
-            <ItemForm item={item}
+            <ItemForm item={item}        
                     onSubmit={(item) => {
                         const newItem=({...item,oldName: holder})
+                        console.log(newItem);
+                        
                         UpdateItems(newItem).then(response => {
                             if(response.available){          
                                 props.dispatch(editItem(holder,item)); 

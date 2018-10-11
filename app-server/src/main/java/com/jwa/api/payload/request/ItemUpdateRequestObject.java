@@ -36,7 +36,7 @@ public class ItemUpdateRequestObject {
     
     @Enumerated(EnumType.STRING)
     private RecurringType recurringsize;
-    
+    private boolean enddate;
     private Date endrecurring;
     
 	public String getName() {
@@ -102,7 +102,15 @@ public class ItemUpdateRequestObject {
 	public void setRecurringsize(RecurringType recurringsize) {
 		this.recurringsize = recurringsize;
 	}
-	
+
+	public boolean isEnddate() {
+		return enddate;
+	}
+
+	public void setEnddate(boolean enddate) {
+		this.enddate = enddate;
+	}
+
 	public Date getEndrecurring() {
 		return endrecurring;
 	}
@@ -115,6 +123,6 @@ public class ItemUpdateRequestObject {
 	public String toString() {
 		return "ItemUpdateRequestObject [name=" + name + ", oldName=" + oldName + ", description=" + description
 				+ ", cost=" + cost + ", userName=" + userName + ", duedate=" + duedate + ", recurring=" + recurring
-				+ ", recurringsize=" + recurringsize + ", endrecurring=" + endrecurring + "]";
+				+ ", recurringsize=" + recurringsize + ", enddate=" + enddate + ", endrecurring=" + endrecurring + "]";
 	}
 }

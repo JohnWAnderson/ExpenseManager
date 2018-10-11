@@ -1,26 +1,16 @@
 package com.jwa.model;
 
-import java.sql.Date;
-
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-
-import org.hibernate.annotations.NaturalId;
-
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.jwa.model.User;
 
@@ -41,35 +31,33 @@ public class Item {
     @NotNull
 	private int cost;
     
-    @NotNull
-    private Date duedate;
-    
-    @NotNull
-    private boolean recurring;
-    
-    @Enumerated(EnumType.STRING)
-    @Column(length = 10)
-    private RecurringType recurringsize;
-    
-    private Date endrecurring;
-    
 	@ManyToOne
 	@JoinColumn(name = "user_id")
     @JsonBackReference
 	private User user;
 	
+	@ManyToOne
+	@JoinColumn(name = "recurring_id")
+    @JsonBackReference
+	private Recurring recurring;
+	
+	@ManyToOne
+	@JoinColumn(name = "dates_id")
+    @JsonBackReference
+    private Dates duedate;
+	
+	@ManyToOne(optional = true, fetch = FetchType.LAZY)
+	@JoinColumn(name = "enddates_id")
+    @JsonBackReference
+    private Dates enddate;   
+	
 	public Item() {}
 
-	public Item(String name,String description,int cost, Date duedate,boolean recurring, RecurringType recurringsize, Date endrecurring) {
+	public Item(String name, String description, int cost) {
 		this.name = name;
 		this.description = description;
 		this.cost = cost;
-		this.duedate = duedate;
-		this.recurring = recurring;
-		this.recurringsize = recurringsize;
-		this.endrecurring = endrecurring;
 	}
-
 
 	public int getId() {
 		return id;
@@ -106,43 +94,34 @@ public class Item {
 	public void setUser(User user) {
 		this.user = user;
 	}
-
-	public Date getDuedate() {
+	
+	public Dates getDuedate() {
 		return duedate;
 	}
 
-	public void setDuedate(Date duedate) {
+	public void setDuedate(Dates duedate) {
 		this.duedate = duedate;
 	}
-
-	public boolean isRecurring() {
+	
+	public Recurring getRecurring() {
 		return recurring;
 	}
 
-	public void setRecurring(boolean recurring) {
+	public void setRecurring(Recurring recurring) {
 		this.recurring = recurring;
 	}
 
-	public RecurringType getRecurringsize() {
-		return recurringsize;
+	public Dates getEnddate() {
+		return enddate;
 	}
 
-	public void setRecurringsize(RecurringType recurringsize) {
-		this.recurringsize = recurringsize;
-	}
-	
-	public Date getEndrecurring() {
-		return endrecurring;
-	}
-
-	public void setEndrecurring(Date endrecurring) {
-		this.endrecurring = endrecurring;
+	public void setEnddate(Dates enddate) {
+		this.enddate = enddate;
 	}
 
 	@Override
 	public String toString() {
-		return "Item [name=" + name + ", description=" + description + ", cost=" + cost + ", duedate=" + duedate
-				+ ", recurring=" + recurring + ", recurringsize=" + recurringsize + "]";
+		return "Item [id=" + id + ", name=" + name + ", description=" + description + ", cost=" + cost + "]";
 	}
 
 }

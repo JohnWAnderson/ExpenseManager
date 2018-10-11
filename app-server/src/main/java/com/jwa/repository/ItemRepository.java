@@ -14,5 +14,5 @@ public interface ItemRepository extends JpaRepository<Item, Long>{
      List<Item> findByUserId(Long userId);
      
      @Query("Select i FROM Item i JOIN i.user u where i.name = ?1 and u.username = ?2 ")
-     List<Item> findTaskByUser(String name, String username);
+     List<Item> findItemByUser(String name, String username);
 }

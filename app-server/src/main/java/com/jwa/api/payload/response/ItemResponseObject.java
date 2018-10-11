@@ -1,28 +1,29 @@
 package com.jwa.api.payload.response;
 
 import java.sql.Date;
-
 import com.jwa.model.RecurringType;
 
 public class ItemResponseObject {
 	private String name;
 	private String description;
-	private int cost;   
+	private int cost;
     private Date duedate;
     private boolean recurring;
-    private RecurringType recurringsize;  
+    private RecurringType recurringsize;
+    private boolean enddate;
     private Date endrecurring;
     
     public ItemResponseObject() {}
     
-	public ItemResponseObject(String name, String description, int cost, Date duedate, boolean recurring, RecurringType recurringsize, Date endrecurring) {
-		super();
+	public ItemResponseObject(String name, String description, int cost, Date duedate, boolean recurring,
+		RecurringType recurringsize, boolean enddate, Date endrecurring) {
 		this.name = name;
 		this.description = description;
 		this.cost = cost;
 		this.duedate = duedate;
 		this.recurring = recurring;
 		this.recurringsize = recurringsize;
+		this.enddate = enddate;
 		this.endrecurring = endrecurring;
 	}
 
@@ -82,13 +83,18 @@ public class ItemResponseObject {
 		this.endrecurring = endrecurring;
 	}
 
+	public boolean isEnddate() {
+		return enddate;
+	}
+
+	public void setEnddate(boolean enddate) {
+		this.enddate = enddate;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemResponseObject [name=" + name + ", description=" + description + ", cost=" + cost + ", duedate="
-				+ duedate + ", recurring=" + recurring + ", recurringsize=" + recurringsize + ", endrecurring="
-				+ endrecurring + "]";
+				+ duedate + ", recurring=" + recurring + ", recurringsize=" + recurringsize + ", enddate=" + enddate
+				+ ", endrecurring=" + endrecurring + "]";
 	}
-	
-	
-
 }

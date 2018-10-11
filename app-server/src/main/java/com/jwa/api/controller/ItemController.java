@@ -24,115 +24,55 @@ import com.jwa.api.payload.response.AvailableResponse;
 import com.jwa.api.payload.response.ItemResponseObject;
 import com.jwa.api.payload.response.PagedResponseObject;
 import com.jwa.exception.ApiError;
+import com.jwa.model.Dates;
 import com.jwa.model.Item;
+import com.jwa.model.Recurring;
 import com.jwa.model.User;
+import com.jwa.repository.DatesRepository;
 import com.jwa.repository.ItemRepository;
+import com.jwa.repository.RecurringRepository;
 import com.jwa.repository.UserRepository;
 import com.jwa.security.CurrentUser;
 import com.jwa.security.UserObject;
+import com.jwa.service.ItemService;
 
 @RestController
 @RequestMapping("/api/items")
 public class ItemController {
 	@Autowired
-    private UserRepository userRepository;
+	private ItemRepository itemRepository;
 	
 	@Autowired
-	private ItemRepository itemRepository;
+	private ItemService itemService;
 	
     @PostMapping
     @PreAuthorize("hasRole('USER')")
-    public ApiResponseObject CreateItem(@Valid @RequestBody ItemRequestObject ItemRequest ) {
-    	if(ItemRequest.getCost() < 0) {
-    		throw (new ApiError("Can't have negitive cost"));
-    	}
-    	System.out.println(ItemRequest);
-    	
-		Item item = new Item();
-		item.setName(ItemRequest.getName());
-		item.setCost(ItemRequest.getCost());
-		item.setDescription(ItemRequest.getDescription());
-		item.setDuedate(ItemRequest.getDuedate());
-		item.setRecurring(ItemRequest.isRecurring());
-		item.setRecurringsize(ItemRequest.getRecurringsize());
-		item.setEndrecurring(ItemRequest.getEndrecurring());
-		Optional<User> userOption = userRepository.findByUsername(ItemRequest.getUserName());
-		if(!userOption.isPresent())
-			throw (new ApiError("Didn't find User"));
-		
-		User theUser = userOption.get();
-		for(Item items: theUser.getItems()) {
-			if(items.getName().equals(ItemRequest.getName())) 
-				throw (new ApiError("Expense Name already Exists"));
-		}
-		
-		item.setUser(theUser);
-		System.out.println(item);
-		itemRepository.save(item);
-	    return (new ApiResponseObject(true, "item Created Successfully"));
+    public ApiResponseObject createItem(@Valid @RequestBody ItemRequestObject ItemRequest ) {
+    	return (new ApiResponseObject(itemService.addItem(ItemRequest, null), "item Created Successfully"));
     }
     
     @GetMapping("/task")
     @PreAuthorize("hasRole('USER')")
-    public AvailableResponse CheckTaskNameAvailable(@CurrentUser UserObject currentUser, @RequestParam(value = "name") String name) {
-    	boolean avaliable = true;
-    	Optional<User> userOption = userRepository.findByUsername(currentUser.getName());
-		if(!userOption.isPresent()) 
-			throw (new ApiError("Didn't find User"));
-		
-		User theUser = userOption.get();
-		for(Item items: theUser.getItems()) {
-			if(items.getName().equals(name)) 
-				avaliable = false;
-		}
-		
-        return (new AvailableResponse(avaliable));
+    public AvailableResponse checkItemNameAvailable(@CurrentUser UserObject currentUser, @RequestParam(value = "name") String name) {
+        return (new AvailableResponse(itemService.checkItemNameAvailable(currentUser.getUsername(), name)));
     }
     
     @GetMapping
     @PreAuthorize("hasRole('USER')")
-    public PagedResponseObject<ItemResponseObject> GetItems(@CurrentUser UserObject currentUser){
-    	Optional<User> userOption = userRepository.findByUsername(currentUser.getName());
-		if(!userOption.isPresent()) 
-			throw (new ApiError("Didn't find User"));
-			
-		User theUser = userOption.get();
-		System.out.println(theUser.getItems());
-		List<ItemResponseObject> ItemConent = new ArrayList<ItemResponseObject>();
-		for(Item item: theUser.getItems())
-			ItemConent.add(new ItemResponseObject(item.getName(), item.getDescription(), item.getCost(), item.getDuedate(), item.isRecurring(), item.getRecurringsize(), item.getEndrecurring()));
-		
-		return (new PagedResponseObject<ItemResponseObject>(ItemConent));
+    public PagedResponseObject<ItemResponseObject> getItems(@CurrentUser UserObject currentUser){
+		return (new PagedResponseObject<ItemResponseObject>(itemService.getItems(currentUser.getUsername())));
     }
     
     @PutMapping
     @PreAuthorize("hasRole('USER')")
-    public ApiResponseObject UpdateItem(@Valid @RequestBody ItemUpdateRequestObject itemUpdateRequest ) {
-    	if(itemUpdateRequest.getCost() < 0) {
-    		throw (new ApiError("Can't have negitive cost"));
-    	}   	
-    	System.out.println(itemUpdateRequest);
-    	List<Item> theTaskList = itemRepository.findTaskByUser(itemUpdateRequest.getOldName(), itemUpdateRequest.getUserName());
-    	Item theItem = theTaskList.get(0);
-    	theItem.setCost(itemUpdateRequest.getCost());
-    	theItem.setDescription(itemUpdateRequest.getDescription());
-    	theItem.setName(itemUpdateRequest.getName());
-    	theItem.setDuedate(itemUpdateRequest.getDuedate());
-    	theItem.setRecurring(itemUpdateRequest.isRecurring());
-    	theItem.setRecurringsize(itemUpdateRequest.getRecurringsize());
-    	theItem.setEndrecurring(itemUpdateRequest.getEndrecurring());
-    	itemRepository.save(theItem);
-		return (new ApiResponseObject(true, "item updated Successfully"));
+    public ApiResponseObject updateItem(@Valid @RequestBody ItemUpdateRequestObject itemUpdateRequest ) {
+		return (new ApiResponseObject(itemService.editItem(itemUpdateRequest), "item updated Successfully"));
     }
     
     @DeleteMapping
     @PreAuthorize("hasRole('USER')")
-    public ApiResponseObject DeleteItem(@Valid @RequestBody ItemRequestObject itemUpdateRequest ) {
-    	List<Item> theTaskList = itemRepository.findTaskByUser(itemUpdateRequest.getName(), itemUpdateRequest.getUserName());
-    	Item theItem = theTaskList.get(0);
-    	System.out.println(theItem);
-    	itemRepository.delete(theItem);
-    	return (new ApiResponseObject(true, "item updated Successfully"));
+    public ApiResponseObject deleteItem(@Valid @RequestBody ItemRequestObject itemUpdateRequest ) {
+    	return (new ApiResponseObject(itemService.deleteItem(itemUpdateRequest.getName(), itemUpdateRequest.getUserName()), "item updated Successfully"));
     }
     
 }

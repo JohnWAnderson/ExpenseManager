@@ -11,13 +11,12 @@ const AddPage = (props) =>{
     <ItemForm
         onSubmit={(item) => {
             console.log(item);
-            
-            // CreateItem(item).then(response => {
-            //      if(response.available){
-            //         props.dispatch(addItem(item))
-            //         props.history.push('/')
-            //     }
-            // });
+            CreateItem(item).then(response => {
+                 if(response.available){
+                    props.dispatch(addItem(item))
+                    props.history.push('/')
+                }
+            });
         }}
     />
     </div>
