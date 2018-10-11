@@ -25,12 +25,12 @@ export default  (state = filterReducerDefault, action) => {
                 ...state,
                 sortby:'date'
             }
-        case 'SET_START_DATE_FILTER':
+        case 'SET_START_DATE_FILTER':        
             return {
                 ...state,
                 startDate: action.startDate
             };
-        case 'SET_END_DATE_FILTER':
+        case 'SET_END_DATE_FILTER':   
             return {
                 ...state,
                 endDate: action.endDate

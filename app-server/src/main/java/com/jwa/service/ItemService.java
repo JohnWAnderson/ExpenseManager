@@ -61,17 +61,13 @@ public class ItemService {
 		if(!(ItemRequest.getEndrecurring() == null)) {
 			item.setEnddate(addDate(ItemRequest.getEndrecurring()));
 		}
-		itemRepository.save(item);
 		return true;	
 	}
 	
 	public boolean editItem(ItemUpdateRequestObject itemUpdateRequest) {
-		System.out.println(itemUpdateRequest);
 		List<Item> theTaskList = itemRepository.findItemByUser(itemUpdateRequest.getOldName(), itemUpdateRequest.getUserName());
 		Item theItem = theTaskList.get(0);
-		System.out.println(theItem);
 		ItemRequestObject updateItem = new ItemRequestObject(itemUpdateRequest);
-		System.out.println(updateItem);
 		return addItem(updateItem, theItem);
 	}
 	
@@ -86,7 +82,6 @@ public class ItemService {
 	}
 	
 	public List<ItemResponseObject> getItems(String userName){
-		System.out.println("start");
 		User theUser = loadUser(userName);
 		boolean enddate;
 		Date endrecurring;
@@ -101,8 +96,6 @@ public class ItemService {
 			ItemConent.add(new ItemResponseObject(item.getName(), item.getDescription(), item.getCost(), item.getDuedate().getThedate(), item.getRecurring().isRecurring(),
 					item.getRecurring().getRecurringsize(), enddate, endrecurring));
 		}
-		System.out.println("Here");
-		System.out.println(ItemConent.toString());
 		return ItemConent;
 	}
 	
@@ -116,8 +109,6 @@ public class ItemService {
 	public boolean deleteItem(String name, String userName) {
     	List<Item> theTaskList = itemRepository.findItemByUser(name, userName);
     	Item theItem = theTaskList.get(0);
-    	System.out.println("delete");
-    	System.out.println(theItem);
     	itemRepository.delete(theItem);
 		return true;
 	}

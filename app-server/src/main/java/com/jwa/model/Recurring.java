@@ -43,6 +43,10 @@ public class Recurring {
 	public void setRecurringsize(RecurringType recurringsize) {
 		this.recurringsize = recurringsize;
 	}
+
+	@Override
+	public String toString() {
+		return "Recurring [id=" + id + ", recurring=" + recurring + ", recurringsize=" + recurringsize + "]";
+	}
        
-    
 }

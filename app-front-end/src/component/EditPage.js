@@ -4,7 +4,7 @@ import { UpdateItems, DeleteItem} from '../ApiMethods/Account';
 import { connect } from 'react-redux';
 import { editItem, removeItem} from '../Redux/Actions/Items';
 import NotFound from './NotFound';
-import getVisableItem from '../Redux/SelectorItem';
+import getVisableItem from '../Redux/SelectorItemOrder';
 const EditPage = (props) =>{
     const item=props.items[props.match.params.id-1]
     if(!!item){

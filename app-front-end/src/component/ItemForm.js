@@ -166,11 +166,15 @@ class ItemForm extends React.Component{
             <label >Is this cost Recurring:</label>
             <select value={this.state.recurring} onChange={(e) => {     
                 if(e.target.value === 'true'){
-                    this.handleRecurringChange(true); 
+                    this.handleRecurringChange(true);
+                    if(this.state.recurringsize)
+                        this.handlerecurringsizeChange('daily');
                 }
                 else if(e.target.value === 'false'){
                     this.handleRecurringChange(false);
                     this.handlerecurringsizeChange('none');
+                    this.onEndRecurringChange(null);
+                    this.handleEndDateChange(false);
                 }
             }}>>
                 <option value='true'>yes</option>
@@ -179,18 +183,14 @@ class ItemForm extends React.Component{
             {this.state.recurring && <div> 
                 <label >Select rate of recurrence:</label>
                 <select value={this.state.recurringsize} onChange={(e) => {     
-                    if(e.target.value === 'weekly'){
+                    if(e.target.value === 'weekly')
                         this.handlerecurringsizeChange('weekly');                 
-                    }
-                    else if(e.target.value === 'biweekly'){
+                    else if(e.target.value === 'biweekly')
                         this.handlerecurringsizeChange('biweekly');
-                    }
-                    else if(e.target.value === 'monthly'){
+                    else if(e.target.value === 'monthly')
                         this.handlerecurringsizeChange('monthly');
-                    }
-                    else if(e.target.value === 'daily'){
+                    else if(e.target.value === 'daily')
                         this.handlerecurringsizeChange('daily');
-                    }
                 }}>>
                     <option value = 'daily'>daily</option>
                     <option value = 'weekly'>weekly</option>

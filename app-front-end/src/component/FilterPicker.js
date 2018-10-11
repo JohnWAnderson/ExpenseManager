@@ -6,18 +6,35 @@ import moment from 'moment';
 
 class FilterPicker extends React.Component{
     constructor(props){
-        super(props);   
+        super(props);    
         this.state={
             CalFocuse: null
         };
         this.onFocusChange = this.onFocusChange.bind(this);
         this.onDatesChange = this.onDatesChange.bind(this);
+        this.TimesAmountChange = this.TimesAmountChange.bind(this);
+        //this.TimesAmountChange();
     }
 
     onDatesChange= ({startDate, endDate}) => {
         this.props.dispatch(setStartDate(startDate));
         this.props.dispatch(setEndDate(endDate));
+        //this.TimesAmountChange();
     };
+
+    TimesAmountChange = () =>{
+        this.props.Items.map((item)=>{
+            console.log(item);
+            if(item.recurring){
+                console.log('yes');  
+            }
+            else{
+                console.log('no');  
+            }
+        });
+    }
+
+
 
     onFocusChange = (CalFocuse) =>{
         this.setState(()=>({CalFocuse}))
@@ -55,7 +72,8 @@ class FilterPicker extends React.Component{
 
 const MapUserInfo=(state)=>{
     return{
-        Filter: state.filter
+        Filter: state.filter,
+        Items: state.items
     }
 }
 

@@ -1,8 +1,8 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import getSelectorSum from '../Redux/SelectorSum';
-import getVisableItem from '../Redux/SelectorItem';
-const PageInformation = (props) =>{
+import getVisableItem from '../Redux/SelectorItemOrder';
+const getVisableItemNumber = (props) =>{
     return(
         <div>
             <p>Page contains {props.Items.length} which totals to ${props.Sum/100}</p>
@@ -11,12 +11,12 @@ const PageInformation = (props) =>{
 }
 
 const MapInfo=(state)=>{
-    
+    const currentItems = getVisableItem(state.items, state.filter)
     return{
-        Sum: getSelectorSum(state.items, state.filter),
-        Items: getVisableItem(state.items, state.filter),
+        Sum: getSelectorSum(currentItems),
+        Items: currentItems,
         sort: state.filter
     }
 }
 
-export default connect(MapInfo)(PageInformation);
+export default connect(MapInfo)(getVisableItemNumber);

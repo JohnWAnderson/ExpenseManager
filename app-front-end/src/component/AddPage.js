@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { addItem } from '../Redux/Actions/Items';
 
 const AddPage = (props) =>{
+    console.log(props);
     return(
         <div>
     <h1>add expense</h1>
