@@ -29,7 +29,7 @@ class ItemForm extends React.Component{
             recurring: props.item? props.item.recurring : false ,
             recurringsize: props.item? props.item.recurringsize : "none",
             enddate: props.item? props.item.enddate : false,
-            endrecurring: props.item? moment(props.item.endrecurring) : null,
+            endrecurring: (props.item && props.item.endrecurring!= null)  ? moment(props.item.endrecurring) : null,
             CalFocuse: false,
             RecFocuse: false
         }
@@ -154,7 +154,7 @@ class ItemForm extends React.Component{
             <input type = "text" placeholder="Name" name = "Name"  id="name" value = {this.state.name.value} onChange = {this.NameChange} /> 
             {!!this.state.name.error && this.state.name.error}
             <br/>
-            <label >Cost:</label>
+            <label >Cost: $</label>
             <input type = "number" placeholder="Cost" name = "Cost" id="cost" value = {this.state.cost.value} onChange = {this.CostChange} />
             {!!this.state.cost.error && this.state.cost.error}
             <br/>
@@ -177,6 +177,7 @@ class ItemForm extends React.Component{
                 <option value = 'false'>no</option>
             </select>
             {this.state.recurring && <div> 
+                <label >Select rate of recurrence:</label>
                 <select value={this.state.recurringsize} onChange={(e) => {     
                     if(e.target.value === 'weekly'){
                         this.handlerecurringsizeChange('weekly');                 
@@ -197,6 +198,7 @@ class ItemForm extends React.Component{
                     <option value = 'monthly'>monthly</option>
                 </select>
                 <br/>
+                <label>Is there an end date for this item:</label>
                 <select value={this.state.enddate} onChange={(e) => {     
                     if(e.target.value === 'true'){
                         this.handleEndDateChange(true); 
@@ -210,7 +212,6 @@ class ItemForm extends React.Component{
                     <option value = 'false'>no</option>
                     <option value='true'>yes</option>
                 </select>
-                {console.log(this.state.enddate)}
                 {this.state.enddate && 
                     <SingleDatePicker date ={this.state.endrecurring} onDateChange={this.onEndRecurringChange} focused = {this.state.RecFocuse} onFocusChange={this.onRecFocuseChange} numberOfMonths={1} isOutsideRange={()=> false}/> }    
                 </div>}

@@ -52,6 +52,7 @@ public class ItemRequestObject {
 	}
 	public ItemRequestObject(ItemUpdateRequestObject changeRequest) {
 		this.name = changeRequest.getOldName();
+		this.userName = changeRequest.getUserName();
 		this.description = changeRequest.getDescription();
 		this.cost = changeRequest.getCost();
 		this.duedate = changeRequest.getDuedate();

@@ -13,7 +13,6 @@ const DatePicker= (props) =>{
             {(props.User.isAuthenticated) &&
                 <div>
                     <FilterPicker/>
-                    <PageInformation/>
                     <ItemList />
                 </div> } 
             </div>

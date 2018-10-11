@@ -6,8 +6,8 @@ import getVisableItem from '../Redux/SelectorItem';
 const ItemList =(props)=>{
     return(
         <div>
+        {console.log(props.User)}  
          {props.User.map((item,index)=>{
-             {console.log(item)}
             return(<Item key={index} {...item} index={index+1}/>)})}
         </div>
     );

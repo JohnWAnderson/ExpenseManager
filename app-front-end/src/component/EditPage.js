@@ -4,14 +4,17 @@ import { UpdateItems, DeleteItem} from '../ApiMethods/Account';
 import { connect } from 'react-redux';
 import { editItem, removeItem} from '../Redux/Actions/Items';
 import NotFound from './NotFound';
+import getVisableItem from '../Redux/SelectorItem';
 const EditPage = (props) =>{
-    const item=props.User.items[props.match.params.id-1]
+    const item=props.items[props.match.params.id-1]
     if(!!item){
         const holder = item.name;
         return(
             <div>
             <button onClick={()=>{
-                const newItem = ({...item, userName: props.User.user.currentUser.username})
+                const newItem = ({...item, userName: props.User.currentUser.username})
+                // props.dispatch(removeItem({name: newItem.name}));    
+                // props.history.push('/')  
                 DeleteItem(newItem).then(response => {        
                     if(response.available){
                         props.dispatch(removeItem({name: newItem.name}));    
@@ -23,7 +26,8 @@ const EditPage = (props) =>{
                     onSubmit={(item) => {
                         const newItem=({...item,oldName: holder})
                         console.log(newItem);
-                        
+                        // props.dispatch(editItem(holder,item)); 
+                        // props.history.push('/') 
                         UpdateItems(newItem).then(response => {
                             if(response.available){          
                                 props.dispatch(editItem(holder,item)); 
@@ -46,7 +50,8 @@ const EditPage = (props) =>{
 
 const MapUserInfo=(state)=>{
   return{
-      User: state
+      User: state.user,
+      items: getVisableItem(state.items, state.filter)
   }
 }
 export default connect(MapUserInfo)(EditPage);

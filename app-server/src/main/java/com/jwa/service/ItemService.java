@@ -40,9 +40,16 @@ public class ItemService {
     	if(ItemRequest.getCost() < 0) {
     		throw (new ApiError("Can't have negitive cost"));
     	}
-    	if(item== null) 
-    		item = new Item();
     	
+    	User theUser = loadUser(ItemRequest.getUserName());
+    	
+    	if(item== null) {
+    		checkItem(theUser, ItemRequest.getName());
+    		item = new Item();
+    	}
+		
+		
+		item.setUser(theUser);
 		item.setName(ItemRequest.getName());
 		item.setCost(ItemRequest.getCost());
 		item.setDescription(ItemRequest.getDescription());
@@ -54,9 +61,6 @@ public class ItemService {
 		if(!(ItemRequest.getEndrecurring() == null)) {
 			item.setEnddate(addDate(ItemRequest.getEndrecurring()));
 		}
-		User theUser = loadUser(ItemRequest.getUserName());
-		item.setUser(theUser);
-		checkItem(theUser, ItemRequest.getName());
 		itemRepository.save(item);
 		return true;	
 	}
@@ -68,8 +72,7 @@ public class ItemService {
 		System.out.println(theItem);
 		ItemRequestObject updateItem = new ItemRequestObject(itemUpdateRequest);
 		System.out.println(updateItem);
-		//return addItem(updateItem, theItem);
-		return false;
+		return addItem(updateItem, theItem);
 	}
 	
 	public boolean checkItemNameAvailable(String userName, String itemName) {

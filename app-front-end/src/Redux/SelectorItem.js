@@ -2,8 +2,6 @@ import moment from 'moment';
 
 export default (items, {name, sortby, startDate, endDate}) =>{
     return items.filter((item) => {
-        console.log(item);  
-        console.log(item.recurring);
         const createdAtMoment = moment(item.duedate)
         const startDateMatch = startDate ? moment(startDate).isSameOrBefore(createdAtMoment, 'day') : true;
         const endDateMatch = endDate ? moment(endDate).isSameOrAfter(createdAtMoment, 'day') : true;
