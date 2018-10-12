@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { DateRangePicker } from 'react-dates';
 import {setEndDate, setStartDate, sortByCost, sortByDate} from '../Redux/Actions/Filter';
 import { editItem } from '../Redux/Actions/Items';
+import {TimesItemChange} from '../Redux/TimesChange';
 import moment from 'moment';
 
 class FilterPicker extends React.Component{
@@ -14,7 +15,6 @@ class FilterPicker extends React.Component{
         this.onFocusChange = this.onFocusChange.bind(this);
         this.onDatesChange = this.onDatesChange.bind(this);
         this.TimesAmountChange = this.TimesAmountChange.bind(this);
-        this.getNewCount = this.getNewCount.bind(this);
     }
 
     onDatesChange= ({startDate, endDate}) => {
@@ -25,45 +25,26 @@ class FilterPicker extends React.Component{
 
     TimesAmountChange = () =>{
         this.props.Items.map((item)=>{
-            let times = 1;
-            if(item.recurring){
-                const duedate = moment(item.duedate);
-                let recurringsize = item.recurringsize;
-                const endrecurring = moment(this.props.Filter.endDate);
-                if(item.enddate){
-                    const endR = moment(item.endrecurring);
-                    if(endR.isBefore(endrecurring))
-                        recurringsize = endR;
-                } 
-                times = this.getNewCount(duedate, endrecurring, recurringsize);     
-                console.log('yes');  
-                
-            }
-            this.props.dispatch(editItem(item.name, {times: times}));
-        });
-    }
-
-    getNewCount = (duedate, endrecurring, recurringsize) =>{
-        switch(recurringsize){
-            case 'daily':
-                console.log('daily'); 
-                return (endrecurring.diff(duedate, 'days'));
-            case 'weekly':
-                console.log('weekly'); 
-                return 1;
-            case 'biweekly':
-                console.log('biweekly'); 
-                return 1;
-            case 'monthly':
-                console.log('monthly'); 
-                return 1;
-            default:
-                console.log('default'); 
-                return 1;
-        }
+            console.log(TimesItemChange(item, this.props.Filter.endDate));
+                this.props.dispatch(editItem(item.name, {times: TimesItemChange(item, this.props.Filter.endDate)}));
+        })
     };
-
-
+    //     this.props.Items.map((item)=>{
+    //         let times = 1;
+    //         if(item.recurring){
+    //             const duedate = moment(item.duedate);
+    //             const recurringsize = item.recurringsize;
+    //             let endrecurring = moment(this.props.Filter.endDate);
+    //             if(item.enddate){
+    //                 const endR = moment(item.endrecurring);
+    //                 if(endR.isBefore(endrecurring))
+    //                     endrecurring = endR;
+    //             } 
+    //             times = this.getNewCount(duedate, endrecurring, recurringsize);     
+    //         }
+    //     });
+    // }
+    //this.props.dispatch(editItem(item.name, {times: times}));
 
     onFocusChange = (CalFocuse) =>{
         this.setState(()=>({CalFocuse}))
