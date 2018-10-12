@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import getVisableItem from '../Redux/SelectorItemOrder';
 import { editItem } from '../Redux/Actions/Items';
 const ItemList =(props)=>{
+    console.log(props.items);
     return(
         <div>
          {props.items.map((item,index)=>{
