@@ -13,8 +13,6 @@ const EditPage = (props) =>{
             <div>
             <button onClick={()=>{
                 const newItem = ({...item, userName: props.User.currentUser.username})
-                // props.dispatch(removeItem({name: newItem.name}));    
-                // props.history.push('/')  
                 DeleteItem(newItem).then(response => {        
                     if(response.available){
                         props.dispatch(removeItem({name: newItem.name}));    
@@ -26,8 +24,6 @@ const EditPage = (props) =>{
                     onSubmit={(item) => {
                         const newItem=({...item,oldName: holder})
                         console.log(newItem);
-                        // props.dispatch(editItem(holder,item)); 
-                        // props.history.push('/') 
                         UpdateItems(newItem).then(response => {
                             if(response.available){          
                                 props.dispatch(editItem(holder,item)); 

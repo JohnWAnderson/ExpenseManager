@@ -20,11 +20,6 @@ export default  (state = filterReducerDefault, action) => {
                 ...state,
                 sortby:'cost'
             }
-        case 'SORT_BY_DATE':
-            return {
-                ...state,
-                sortby:'date'
-            }
         case 'SET_START_DATE_FILTER':        
             return {
                 ...state,

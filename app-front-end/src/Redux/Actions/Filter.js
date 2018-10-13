@@ -7,10 +7,6 @@ export const sortByCost = () =>({
     type: 'SORT_BY_COST'
 });
 
-export const sortByDate = () =>({
-    type: 'SORT_BY_DATE'
-});
-
 export const setStartDate = (startDate = undefined) =>({
     type: 'SET_START_DATE_FILTER',
     startDate
