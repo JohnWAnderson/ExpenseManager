@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { DateRangePicker } from 'react-dates';
-import {setEndDate, setStartDate, sortByCost, sortByDate} from '../Redux/Actions/Filter';
+import {setEndDate, setStartDate} from '../Redux/Actions/Filter';
 import { editItem } from '../Redux/Actions/Items';
 import {TimesItemChange} from '../Redux/TimesChange';
 import moment from 'moment';
@@ -25,7 +25,6 @@ class FilterPicker extends React.Component{
 
     TimesAmountChange = (startDate, endDate) =>{
         this.props.Items.map((item)=>{
-            //console.log(TimesItemChange(item, {startDate, endDate}));
             this.props.dispatch(editItem(item.name, {times: TimesItemChange(item, {startDate, endDate})}));
         })
     };
