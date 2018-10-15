@@ -5,12 +5,12 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.jwa.api.payload.request.ItemRequestObject;
 import com.jwa.api.payload.request.ItemUpdateRequestObject;
 import com.jwa.api.payload.response.ItemResponseObject;
-import com.jwa.api.payload.response.PagedResponseObject;
 import com.jwa.exception.ApiError;
 import com.jwa.model.Dates;
 import com.jwa.model.Item;

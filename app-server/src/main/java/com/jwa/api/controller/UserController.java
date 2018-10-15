@@ -12,27 +12,27 @@ import com.jwa.api.payload.response.UserBasicResponseObject;
 import com.jwa.repository.UserRepository;
 import com.jwa.security.CurrentUser;
 import com.jwa.security.UserObject;
+import com.jwa.service.UserService;
 
 @RestController
 @RequestMapping("/api")
 public class UserController {
-	@Autowired
-    private UserRepository userRepository;
-	
+    @Autowired
+    UserService userService;
+
     @GetMapping("/user/me")
     @PreAuthorize("hasRole('USER')")
     public UserBasicResponseObject getCurrentUser(@CurrentUser UserObject currentUser) {
-    	UserBasicResponseObject userInfo = new UserBasicResponseObject(currentUser.getUsername(), currentUser.getName());
-        return userInfo;
+    	return userService.getCurrentUserInformation(currentUser);
     }
     
     @GetMapping("/user/checkUsernameAvailable")
     public AvailableResponse checkUsernameAvailable(@RequestParam(value = "username") String username) {
-    	return new AvailableResponse(!userRepository.existsByUsername(username));
+    	return userService.checkUsernameAvailable(username);
     }
     
     @GetMapping("/user/checkEmailAvailable")
     public AvailableResponse checkEmailAvailable(@RequestParam(value = "email") String email) {
-    	return new AvailableResponse(!userRepository.existsByEmail(email));
+    	return userService.checkEmailAvailable(email);
     }
 }
