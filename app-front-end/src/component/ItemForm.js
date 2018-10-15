@@ -46,11 +46,11 @@ class ItemForm extends React.Component{
                 "cost": this.state.cost.value*100,
                 "description":this.state.description.value,
                 "userName": this.props.User.username,
-                "duedate": this.state.duedate.format("YYYY-MM-DD"),
+                "duedate": this.state.duedate.add(1, 'days').format("YYYY-MM-DD"),
                 "recurring": this.state.recurring,
                 "recurringsize": this.state.recurringsize,
                 "enddate": this.state.enddate,
-                "endrecurring": (this.state.endrecurring === null)? null :this.state.endrecurring.format("YYYY-MM-DD")
+                "endrecurring": (this.state.endrecurring === null)? null :this.state.endrecurring.add(1, 'days').format("YYYY-MM-DD")
             });
         }
     }
