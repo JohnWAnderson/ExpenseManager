@@ -20,13 +20,13 @@ class FilterPicker extends React.Component{
     onDatesChange= ({startDate, endDate}) => {
         this.props.dispatch(setStartDate(startDate));
         this.props.dispatch(setEndDate(endDate));
-        this.TimesAmountChange();
+        this.TimesAmountChange(startDate, endDate);
     };
 
-    TimesAmountChange = () =>{
+    TimesAmountChange = (startDate, endDate) =>{
         this.props.Items.map((item)=>{
-            //console.log(TimesItemChange(item, this.props.Filter.endDate));
-            this.props.dispatch(editItem(item.name, {times: TimesItemChange(item, this.props.Filter)}));
+            //console.log(TimesItemChange(item, {startDate, endDate}));
+            this.props.dispatch(editItem(item.name, {times: TimesItemChange(item, {startDate, endDate})}));
         })
     };
 

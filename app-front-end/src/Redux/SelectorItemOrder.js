@@ -8,13 +8,13 @@ export default (items, {name, sortby, startDate, endDate}) =>{
         let DueRecurring = null
         if(item.enddate )
             DueRecurring = moment(item.endrecurring);
-        const recurringSDate = CheckRecurringSDate(startF, DueDate, DueRecurring, item.recurring);
+        const recurringSDate = CheckRecurringSDate(startF, DueDate, item.recurring);
         const recurringEDate = CheckRecurringEDate(endF, DueRecurring, item.recurring);
         const startDateMatch = startDate ? startF.isSameOrBefore(DueDate, 'day') : true;
         const endDateMatch = endDate ? endF.isSameOrAfter(DueDate, 'day') : true;
         const nameMatch = item.name.toLowerCase().includes(name.toLowerCase());  
-        //console.log('here', item.name, (startDateMatch || recurringSDate),(endDateMatch || recurringEDate), nameMatch );
-        return (startDateMatch || recurringSDate) && (endDateMatch || recurringEDate) && nameMatch
+        const times = item.times > 0;
+        return (startDateMatch || recurringSDate) && (endDateMatch || recurringEDate) && nameMatch && times;
         
     }).sort((a,b) => {
         if(sortby === 'cost'){
@@ -26,8 +26,8 @@ export default (items, {name, sortby, startDate, endDate}) =>{
     });
 };
 
-const CheckRecurringSDate=(startF, DueDate, DueRecurring, recurring) =>{
-    if(DueDate.isBefore(startF) && recurring && DueRecurring !== null)
+const CheckRecurringSDate=(startF, DueDate, recurring) =>{
+    if(DueDate.isBefore(startF) && recurring)
         return true;
     return false
 };

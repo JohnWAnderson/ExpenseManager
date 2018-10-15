@@ -42,25 +42,20 @@ public class ItemService {
     	}
     	
     	User theUser = loadUser(ItemRequest.getUserName());
-    	
     	if(item== null) {
     		checkItem(theUser, ItemRequest.getName());
     		item = new Item();
     	}
-		
-		
 		item.setUser(theUser);
 		item.setName(ItemRequest.getName());
 		item.setCost(ItemRequest.getCost());
 		item.setDescription(ItemRequest.getDescription());
-		
 		item.setDuedate(addDate(ItemRequest.getDuedate()));
-			
 		item.setRecurring(addRecurring(ItemRequest.getRecurringsize()));
-		
 		if(!(ItemRequest.getEndrecurring() == null)) {
 			item.setEnddate(addDate(ItemRequest.getEndrecurring()));
 		}
+		itemRepository.save(item);
 		return true;	
 	}
 	
@@ -135,9 +130,9 @@ public class ItemService {
 			datesRepository.save(newDate);
 			return newDate;
 		}
-		else {
+		else 
 			return dateOption.get();
-		}
+		
 	}
 
 }

@@ -25,7 +25,7 @@ class ItemForm extends React.Component{
                 valid: props.item? true :false,
                 error:''
             },
-            duedate: props.item? moment(props.item.duedate) : moment(),
+            duedate: props.item? moment(props.item.duedate) : moment().startOf('day'),
             recurring: props.item? props.item.recurring : false ,
             recurringsize: props.item? props.item.recurringsize : "none",
             enddate: props.item? props.item.enddate : false,
@@ -34,6 +34,8 @@ class ItemForm extends React.Component{
             RecFocuse: false
         }
         this.onSubmit = this.onSubmit.bind(this);
+        console.log(this.state);
+        
     }
 
     onSubmit= (e) => {
