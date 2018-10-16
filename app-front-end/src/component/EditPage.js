@@ -23,7 +23,6 @@ const EditPage = (props) =>{
             <ItemForm item={item}        
                     onSubmit={(item) => {
                         const newItem=({...item,oldName: holder})
-                        console.log(newItem);
                         UpdateItems(newItem).then(response => {
                             if(response.available){          
                                 props.dispatch(editItem(holder,item)); 

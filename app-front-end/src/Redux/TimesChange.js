@@ -1,19 +1,15 @@
 import moment from 'moment';
 
-
-
-export const TimesItemChange = (item, filter) =>{
+export const TimesItemChange = (item, startDate, endDate) =>{
         let times = 1;
         if(item.recurring){
             const duedate = moment(item.duedate);
             const recurringsize = item.recurringsize;
-            let startF= moment(filter.startDate).startOf('day');
-            let endF = moment(filter.endDate).startOf('day');
+            let startF= moment(startDate).startOf('day');
+            let endF = moment(endDate).startOf('day');
             if(duedate.isBefore(startF, 'day')){
-                times = 0
-                console.log(item.name);         
+                times = 0        
                 startF = findNewStart(duedate, startF, recurringsize)
-                console.log(startF);
                 
             }else{
                 startF = duedate;
@@ -32,30 +28,25 @@ export const TimesItemChange = (item, filter) =>{
 };
 
 const findNewStart = (duedate, startF, recurringsize) =>{
-    const difference = (startF.diff(duedate, 'days'));
-    console.log(duedate, startF);
     switch(recurringsize){
         case "daily":
             return startF
         case "weekly":
-            return moment(startF).subtract(difference%7, 'days').startOf('day');
+            return moment(duedate).add(startF.diff(duedate, 'weeks'), 'weeks').startOf('day');
         case "biweekly":
-            return moment(startF).subtract(difference%14, 'days').startOf('day');
+            return moment(duedate).add(Math.floor(startF.diff(duedate, 'weeks')/2), 'weeks').startOf('day');
         case "monthly":
-            
+            return moment(duedate).add(startF.diff(duedate, 'month'), 'month').startOf('day');
         default:
             return 1;
-    };
+    }
 }
-
-
 
 export const getNewCount = (startF, endF, recurringsize) =>{
     switch(recurringsize){
         case "daily":
             return (endF.diff(startF, 'days'));
         case "weekly":
-            console.log(endF,startF);
             return endF.diff(startF, 'weeks');
         case "biweekly":
             return Math.floor((endF.diff(startF, 'weeks'))/2) ;
@@ -63,5 +54,5 @@ export const getNewCount = (startF, endF, recurringsize) =>{
             return (endF.diff(startF, 'month'));
         default:
             return 1;
-    };
+    }
 };

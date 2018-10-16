@@ -2,7 +2,6 @@ import React from 'react';
 import Item from './Item';
 import { connect } from 'react-redux';
 import getVisableItem from '../Redux/SelectorItemOrder';
-import { editItem } from '../Redux/Actions/Items';
 const ItemList =(props)=>{
     console.log(props.items);
     return(

@@ -13,7 +13,9 @@ import { BrowserRouter } from 'react-router-dom'
 import { addUser, removeUser } from './Redux/Actions/Users';
 import { addItem, clearItems } from './Redux/Actions/Items';
 import { resetFilter } from './Redux/Actions/Filter';
-import DatePicker from './component/DatePicker'
+import DatePicker from './component/DatePicker';
+import {TimesItemChange} from './Redux/TimesChange';
+
 class App extends React.Component {
   constructor(props) {   
     super(props);  
@@ -21,6 +23,7 @@ class App extends React.Component {
     this.loadCurrentUser=this.loadCurrentUser.bind(this);
     this.handleLogOut=this.handleLogOut.bind(this);
     this.loadItems=this.loadItems.bind(this);
+    
   }
   
 handleLogOn=()=>{
@@ -45,7 +48,8 @@ handleLogOn=()=>{
 loadItems = () =>{
   GetItems().then(response => {     
       for (const item of response.content) {
-        this.props.dispatch((addItem(item)))
+        const newItem = {...item, times: TimesItemChange(item, this.props.User.filter.startDate, this.props.User.filter.endDate)}
+        this.props.dispatch(addItem(newItem))
       }
   });
 }

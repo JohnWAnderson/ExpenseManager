@@ -25,7 +25,7 @@ class FilterPicker extends React.Component{
 
     TimesAmountChange = (startDate, endDate) =>{
         this.props.Items.map((item)=>{
-            this.props.dispatch(editItem(item.name, {times: TimesItemChange(item, {startDate, endDate})}));
+            this.props.dispatch(editItem(item.name, {times: TimesItemChange(item, startDate, endDate)}));
         })
     };
 
