@@ -10,16 +10,19 @@ export const TimesItemChange = (item, startDate, endDate) =>{
             if(duedate.isBefore(startF, 'day')){
                 times = 0        
                 startF = findNewStart(duedate, startF, recurringsize)
-                
-            }else{
+             }
+             else
                 startF = duedate;
-            }
+            
                 
             if(item.enddate){
                 const endR = moment(item.endrecurring);
                 if(endR.isBefore(endF, 'day'))
                     endF = endR;
             } 
+            if(endF.isBefore(startF))
+                return 0;
+            
             const tempCount = getNewCount(startF, endF, recurringsize); 
             times = tempCount < 0 ? times: tempCount + times; 
         }

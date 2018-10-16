@@ -46,7 +46,7 @@ class FilterPicker extends React.Component{
             onFocusChange={this.onFocusChange}
             showClearDates={true}
             numberOfMonths={2} 
-            isOutsideRange={()=> false}/>
+            isOutsideRange={()=> false}/> 
              </div>
         );
     };
