@@ -14,6 +14,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.jwa.api.payload.request.LoginRequestObject;
@@ -55,6 +56,7 @@ public class UserService {
 	    return  ResponseEntity.ok(new JwtResponseObject(jwt));
     }
 	
+    @Transactional
     public  ResponseEntity<?> signupRequest(SignUpRequestObject signUpRequest){
         if(userRepository.existsByUsername(signUpRequest.getUsername())) 
             return new ResponseEntity<Object>(new ApiResponseObject(false, "Username is already in use"), HttpStatus.BAD_REQUEST);

@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.jwa.api.payload.request.ItemRequestObject;
 import com.jwa.api.payload.request.ItemUpdateRequestObject;
@@ -36,6 +37,7 @@ public class ItemService {
 	@Autowired
 	private DatesRepository datesRepository;
 	
+	@Transactional
 	public boolean addItem(ItemRequestObject ItemRequest, Item item) {
     	if(ItemRequest.getCost() < 0) {
     		throw (new ApiError("Can't have negitive cost"));
@@ -59,6 +61,7 @@ public class ItemService {
 		return true;	
 	}
 	
+	@Transactional
 	public boolean editItem(ItemUpdateRequestObject itemUpdateRequest) {
 		List<Item> theTaskList = itemRepository.findItemByUser(itemUpdateRequest.getOldName(), itemUpdateRequest.getUserName());
 		Item theItem = theTaskList.get(0);
@@ -115,6 +118,7 @@ public class ItemService {
 		return userOption.get();
 	}
 	
+	@Transactional
 	public Recurring addRecurring(RecurringType recurring) {
 		Optional<Recurring> recurringOption = recurringRepository.findByRecurringsize(recurring);
 		if(!recurringOption.isPresent())
@@ -123,6 +127,7 @@ public class ItemService {
 		return recurringOption.get();
 	}
 	
+	@Transactional
 	public Dates addDate(Date date) {
 		Optional<Dates> dateOption = datesRepository.findByThedate(date);
 		if(!dateOption.isPresent()) {
