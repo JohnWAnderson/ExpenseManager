@@ -1,7 +1,5 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import Login from './Account/Login';
-import Signup from './Account/Signup';
 import Header from './component/Header';
 import NotFound from './component/NotFound';
 import AddPage from './component/AddPage';
@@ -15,6 +13,12 @@ import { addItem, clearItems } from './Redux/Actions/Items';
 import { resetFilter } from './Redux/Actions/Filter';
 import DatePicker from './component/DatePicker';
 import {TimesItemChange} from './Redux/TimesChange';
+import styled from 'styled-components';
+
+const Main_app = styled.div`
+padding: 0;
+height: 100%;
+`
 
 class App extends React.Component {
   constructor(props) {   
@@ -57,17 +61,15 @@ loadItems = () =>{
 
   render=()=>(
     <BrowserRouter>
-        <div>
-            <Header handleLogOut= {this.handleLogOut}/>
+        <Main_app className='app'>
+            <Header handleLogOut= {this.handleLogOut} handleLogOn={this.handleLogOn}/>
             <Switch>
                 <Route path="/" component = {DatePicker} exact={true}/>
-                <Route path="/signup" component= {Signup} exact={true}/>
-                <Route path="/login" component= {(props) =><Login {...props} handleLogOn={this.handleLogOn}/>}  exact={true}/> 
                 <Route path="/edit/:id" component= {EditPage}/>
                 <PrivateRoute path="/add" component={AddPage} isAuthenticated={this.props.User.user.isAuthenticated}/> 
                 <Route component= {NotFound}/>
             </Switch>
-        </div>
+        </Main_app>
       </BrowserRouter>
   );
 };

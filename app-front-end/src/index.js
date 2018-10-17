@@ -4,12 +4,11 @@ import App from './App';
 import registerServiceWorker from './registerServiceWorker';
 import { Provider } from 'react-redux';
 import StoreConfig from './Redux/store';
-
 const store = StoreConfig();
 
 const jsx = (
     <Provider store= {store}>
-            <App />
+        <App />
     </Provider>
 );
 

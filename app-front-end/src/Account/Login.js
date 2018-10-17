@@ -3,6 +3,8 @@ import { signin, ACCESS_TOKEN } from '../ApiMethods/Account';
 import { connect } from 'react-redux';
 
 const Login =(props)=> {
+    console.log(props);
+    
     return(
         <div>
             <form onSubmit={(e)=>{
@@ -15,7 +17,6 @@ const Login =(props)=> {
                 .then(response => {
                     localStorage.setItem(ACCESS_TOKEN, response.accessToken);
                     props.handleLogOn();
-                    props.history.push('/');
                 });
             }} >
                 {props.User.isAuthenticated && <p>{props.history.push('/')}</p>}

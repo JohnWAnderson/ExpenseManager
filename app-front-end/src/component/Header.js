@@ -1,25 +1,58 @@
 import React from 'react';
-import {NavLink} from 'react-router-dom';
+import {NavLink, Link} from 'react-router-dom';
 import { connect } from 'react-redux';
+import styled from 'styled-components';
+import Login from '../Account/Login';
+const Main_header = styled.header`
+    padding: 0;
+    height: 8%;
+    background: #4A8ABA
+    align-items: stretch
+    position: relative;
+`
+
+const Header_Link = styled(Link)`
+    color: green;
+    text-decoration: none;
+    font-family: Georgia;
+    text-align: left ;
+    position: absolute;
+    bottom: 0;
+`
+
+const Header_h1 = styled.h1`
+    float: left;
+`
+
+const LogOut_Div = styled.div`
+    position: absolute;
+    right: 0; bottom: 0
+    text-align: right ;
+    float: right;
+`
+
+const LogIn_Div = styled.div`
+    position: absolute;
+    right: 0; bottom: 0
+    text-align: right ;
+    float: right;
+`
 
 const Header =(props)=>{
     return(
-    <header>
-    <h1>Item Manager</h1>
-    {(!props.User.isAuthenticated) &&
-        <div>
-        <NavLink to="/" activeClassName="is-active" exact={true} >Home Page  </NavLink>  
-        <NavLink to="/signup" activeClassName="is-active">signin  </NavLink>  
-        <NavLink to="/login" activeClassName="is-active">login</NavLink>
-        </div> }   
-    {(props.User.isAuthenticated) &&
-            <div>
+    <Main_header>
+    <Header_h1>
+    <Header_Link to="/">
+        Item Manager
+    </Header_Link>
+    </Header_h1>
+    {(props.User.isAuthenticated) ?
+            <LogOut_Div>
             Hello, {props.User.currentUser.username}  
-            <NavLink to="/" activeClassName="is-active" exact={true} >Home Page  </NavLink>  
-            <NavLink to="/add" activeClassName="is-active" exact={true} > add Page </NavLink>  
             <button onClick = {props.handleLogOut}>LogOut</button>
-            </div> }
-    </header>   
+            </LogOut_Div> :
+            <LogIn_Div><Login handleLogOn={props.handleLogOn}/></LogIn_Div>}
+    </Main_header>   
     );
 }
 
