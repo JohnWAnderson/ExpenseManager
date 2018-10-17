@@ -1,7 +1,6 @@
 import React from 'react';
 import ItemList from './ItemList';
 import { connect } from 'react-redux';
-import {NavLink, Link} from 'react-router-dom';
 import FilterPicker from './FilterPicker';
 import PageInformation from './PageInformation';
 import styled from 'styled-components';
@@ -11,41 +10,39 @@ const Box_Div = styled.div`
     position:absolute;
     border-radius: 5px;
     text-align: right;
-    align: center;
-    padding: 2rem 3 rem;    
+    padding: 2rem 3 rem;   
+    position: absolute;
+    top: auto;
+    right: 0px; 
+`
+
+const Main_Div = styled.div`
+height: 92%;
+background: #D4D7EF
 `
 
 const Main_Signup_Block = styled.div`
     position: relative
     border-radius: 5px;
-    text-align: center;
-    align: center;
-    padding-right: 30px;
-    padding-left: 80px;
-    width: 500px; height: 500px;
-    float: right;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    margin-right: auto;
+    margin-left: auto;
+    width: 900px; height: 100%;
+    position: relative;
 `
 
 
 const App_DashBoard = styled.div`
     padding: 0;
-    height: 90%;
     align: center;
     text-align: center;
-`
-
-const Small_Link = styled(NavLink)`
-    color: blue
-`
-
-const Big__Link = styled(NavLink)`
-    color: red
 `
 
 
 const DatePicker= (props) =>{ 
         return(
-            <div>
+            <Main_Div>
             {(props.User.isAuthenticated) ?
                 <App_DashBoard>
                     <FilterPicker/>
@@ -57,7 +54,7 @@ const DatePicker= (props) =>{
                         <Signup/>
                     </Box_Div>
                 </Main_Signup_Block>} 
-            </div>
+            </Main_Div>
         );
 }
 

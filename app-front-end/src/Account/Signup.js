@@ -1,5 +1,30 @@
 import React from 'react';
-import { signup, UsernameAvailabile, EmailAvailabile } from '../ApiMethods/Account';
+import { signup, signin , UsernameAvailabile, EmailAvailabile, ACCESS_TOKEN, getCurrentUser} from '../ApiMethods/Account';
+import { addUser } from '../Redux/Actions/Users';
+import styled from 'styled-components';
+
+const SingUp_h1 = styled.h1`
+    text-align: left ;
+    padding-bottom: 25px;
+`
+const SignUp_Input = styled.input`
+margin: 2px 0;
+display: inline-block;
+border: 1px solid #ccc;
+border-radius: 5px;
+box-sizing: border-box;
+height 30;
+`
+const Signup_Td_Label = styled.td`
+text-align: left ;
+`
+
+const Signup_Td_Error = styled.td`
+text-align: right ;
+width: 100px; height: auto;
+color: red;
+`
+
 class Signup extends React.Component {
     constructor(props){
         super(props);
@@ -28,11 +53,13 @@ class Signup extends React.Component {
         }
         this.validateEmail = this.validateEmail.bind(this);
         this.resetInput = this.resetInput.bind(this);
+        this.signedup = this.signedup.bind(this);
     }  
 
 
     onSubmit = (e) =>{
         e.preventDefault();
+        
         if(this.state.username.valid && this.state.name.valid && this.state.email.valid && this.state.password.valid){
             const signupRequestObject = {
                 name: this.state.name.value,
@@ -41,14 +68,33 @@ class Signup extends React.Component {
                 password: this.state.password.value
             };
             signup(signupRequestObject).then(response => {
-                console.log(response)});
-            this.props.history.push('/login') 
+                if(response.available){
+                    this.signedup(signupRequestObject.username, signupRequestObject.password);
+                }
+            });
         }
         else{
             console.log("no");
         }       
         this.resetInput(e);
     };
+
+
+    signedup=(username, password)=>{
+        const signinRequestObject = {
+            usernameOrEmail: username,
+            password: password
+        };
+        signin(signinRequestObject)
+        .then(response => {
+            console.log(response);
+            // localStorage.setItem(ACCESS_TOKEN, response.accessToken);
+            // getCurrentUser()
+            // .then(response => {
+            //     this.props.dispatch(addUser({currentUser: response, isAuthenticated: true}))
+            // })
+        });
+    }
 
     resetInput = (e) =>{
         e.target.elements.name.value = '';
@@ -77,12 +123,12 @@ class Signup extends React.Component {
         }})
     };
 
-    validateEmail =(email) => {
-        var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-        return re.test(String(email).toLowerCase());
-    }
+        validateEmail =(email) => {
+            var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(String(email).toLowerCase());
+        }
 
-        PasswordChange = (e) =>{
+        PasswordChange = (e) =>{         
             const password = e.target.value
             if(password.length >= 6 && password.length <= 20){
                 this.setState({
@@ -91,7 +137,16 @@ class Signup extends React.Component {
                         valid: true,
                         error: ''
                     }})
-            }else{
+            }
+            else if(password.length === 0){
+                this.setState({
+                    password: {
+                        value: password,
+                        valid: false,
+                        error: ''
+                    }})
+            }
+            else{
                 this.setState({
                     password: {
                         value: password,
@@ -111,6 +166,14 @@ class Signup extends React.Component {
                         error: ''
                     }
                 })
+            }
+            else if(name.length === 0){
+                this.setState({
+                    name: {
+                        value: name,
+                        valid: false,
+                        error: ''
+                    }})
             }
             else{
                 this.setState({
@@ -148,6 +211,15 @@ class Signup extends React.Component {
                     }
                 });
             }
+            else if(UserName.length === 0){
+                this.setState({
+                    username: {
+                        value: UserName,
+                        valid: false,
+                        error: ''
+                    }
+                })
+            }
             else{
                 this.setState({
                     username: {
@@ -161,7 +233,16 @@ class Signup extends React.Component {
     
         EmailChange = (e) =>{
             const email = e.target.value
-            if(this.validateEmail(email)){
+            if(email.length=== 0){
+                this.setState({
+                    email: {
+                        value: email,
+                        valid: false,
+                        error: ''
+                    }
+                })
+            }
+            else if(this.validateEmail(email)){
                 if(email.length <= 50){
                     EmailAvailabile(email).then(response =>
                         {
@@ -208,25 +289,32 @@ class Signup extends React.Component {
 
     render= () =>(
         <div>
-            <form  onSubmit= {this.onSubmit}>
-            <label >Name:</label>
-            <input type = "text" name = "Name"  id="name" onChange = {this.NameChange} required /> 
-            {!this.state.name.valid && this.state.name.error}
-            <br/>
-            <label >UserName:</label>
-            <input type = "text" name = "Username" id="username" onChange = {this.UserNameChange} required />
-            {!this.state.username.valid && this.state.username.error}
-            <br/>
-            <label >Email:</label>
-            <input type = "email" name = "Email"  id= "email" onChange = {this.EmailChange} required/>      
-            {!this.state.email.valid && this.state.email.error}
-            <br/>   
-            <label >Password:</label>
-            <input type = "password" name = "Password" id="password" onChange = {this.PasswordChange} required/>
-            {!this.state.password.valid && this.state.password.error}
-            <br/>
-            <button className= "button">Signup Submit</button>
-            </form>
+        <SingUp_h1>Sign Up</SingUp_h1>
+        <form  onSubmit= {this.onSubmit}>
+            <table>
+            <tbody>
+            <tr>
+                <td><SignUp_Input type = "text" name = "Name"  id="name" placeholder="Name" onChange = {this.NameChange} required /> </td>
+                <Signup_Td_Error>{!this.state.name.valid && this.state.name.error}</Signup_Td_Error>
+            </tr>
+            <tr>
+                <td><SignUp_Input type = "text" name = "Username" id="username" placeholder="Username" onChange = {this.UserNameChange} required /></td>
+                <Signup_Td_Error>{!this.state.username.valid && this.state.username.error}</Signup_Td_Error>
+            </tr>
+            <tr>
+                <td><SignUp_Input type = "email" name = "Email" id= "email" placeholder="Email"  onChange = {this.EmailChange} required/></td>
+                <Signup_Td_Error>{!this.state.email.valid && this.state.email.error}</Signup_Td_Error>
+            </tr>
+            <tr>
+                <td><SignUp_Input type = "password" name = "Password" id="password" placeholder="Password" onChange = {this.PasswordChange} required/></td>
+                <Signup_Td_Error>{!this.state.password.valid && this.state.password.error}</Signup_Td_Error>
+            </tr>
+            <tr>
+                <Signup_Td_Label><button className= "button">Signup Submit</button></Signup_Td_Label>
+            </tr>
+            </tbody>
+            </table>
+        </form>
         </div>
     );
 

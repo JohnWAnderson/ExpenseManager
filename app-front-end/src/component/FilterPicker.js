@@ -37,16 +37,15 @@ class FilterPicker extends React.Component{
         return(
             <div>
             <DateRangePicker
-            startDateId="start_date_input"
-            endDateId="end_date_input"
             startDate={moment(this.props.Filter.startDate)}
             endDate={moment(this.props.Filter.endDate)}
             onDatesChange={this.onDatesChange}
             focusedInput={this.state.CalFocuse}
             onFocusChange={this.onFocusChange}
             showClearDates={true}
-            numberOfMonths={2} 
-            isOutsideRange={()=> false}/> 
+            numberOfMonths={1} 
+            isOutsideRange={()=> false}
+            />
              </div>
         );
     };
