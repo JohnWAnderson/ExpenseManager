@@ -6,22 +6,23 @@ import styled from 'styled-components';
 
 const ItemList_Div = styled.div`
     padding: 0;
-    align: center;
     text-align: center;
+    position: relative;
+    border: 20px solid black;
+    border-bottom: none;
+    width: 70%;
+    margin auto;
 `
 const ItemList_Table = styled.table`
+    position: relative;
     margin: 0 auto;
     padding: 0;
-    align: center;
     text-align: center;
-    border: 1px solid black;
-    width: 80%;
-    height: 100%;
+    width: 100%;
 ` 
 //position: relative or absolute;
 const ItemList_Td = styled.td`
-padding-top:2px;
-padding-bottom:2px;
+position: relative;
 `
 
 const ItemList =(props)=>{

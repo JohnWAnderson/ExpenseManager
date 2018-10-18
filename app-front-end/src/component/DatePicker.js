@@ -31,14 +31,14 @@ const Main_Signup_Block = styled.div`
     width: 900px; height: 100%;
     position: relative;
 `
-
-
 const App_DashBoard = styled.div`
     padding: 0;
     align: center;
     text-align: center;
+    height: 100%;
+    position: relative;
+    flex-direction: column;
 `
-
 
 const DatePicker= (props) =>{ 
         return(
