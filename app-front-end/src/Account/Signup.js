@@ -6,24 +6,57 @@ import styled from 'styled-components';
 const SingUp_h1 = styled.h1`
     text-align: left ;
     padding-bottom: 25px;
+    padding-left: 2px;
 `
 const SignUp_Input = styled.input`
-margin: 2px 0;
-display: inline-block;
-border: 1px solid #ccc;
-border-radius: 5px;
-box-sizing: border-box;
-height 30;
+    margin-bottom: 10px;
+    padding: 2px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    height: 30px;
+    width: 250px;
 `
 const Signup_Td_Label = styled.td`
-text-align: left ;
+    text-align: left ;
+`
+const Signup_Form = styled.form`
+`
+const Signup_Form_Div = styled.div`
+    display: inline-block;
+    width: 100%;
 `
 
 const Signup_Td_Error = styled.td`
-text-align: right ;
-width: 100px; height: auto;
-color: red;
+    text-align: right ;
+    width: 100px; height: auto;
+    color: red;
 `
+const Signup_Div = styled.div`
+    display: inline-block;
+    vertical-align: top;
+    width: 40%;
+    align: right;
+    text-align: right ;
+    position: relative;
+    height: 100%;
+`   
+
+const Main_Signin_Div = styled.div`
+    position: relative;
+    display: block;
+`   
+
+const Signin_info_div = styled.div`
+    display: inline-block;
+    vertical-align: top;
+    align: left;
+    width: 60%;
+    height: 100%;
+    text-align: left ;
+    position: relative;
+`   
 
 class Signup extends React.Component {
     constructor(props){
@@ -288,34 +321,41 @@ class Signup extends React.Component {
     
 
     render= () =>(
-        <div>
-        <SingUp_h1>Sign Up</SingUp_h1>
-        <form  onSubmit= {this.onSubmit}>
-            <table>
-            <tbody>
-            <tr>
-                <td><SignUp_Input type = "text" name = "Name"  id="name" placeholder="Name" onChange = {this.NameChange} required /> </td>
-                <Signup_Td_Error>{!this.state.name.valid && this.state.name.error}</Signup_Td_Error>
-            </tr>
-            <tr>
-                <td><SignUp_Input type = "text" name = "Username" id="username" placeholder="Username" onChange = {this.UserNameChange} required /></td>
-                <Signup_Td_Error>{!this.state.username.valid && this.state.username.error}</Signup_Td_Error>
-            </tr>
-            <tr>
-                <td><SignUp_Input type = "email" name = "Email" id= "email" placeholder="Email"  onChange = {this.EmailChange} required/></td>
-                <Signup_Td_Error>{!this.state.email.valid && this.state.email.error}</Signup_Td_Error>
-            </tr>
-            <tr>
-                <td><SignUp_Input type = "password" name = "Password" id="password" placeholder="Password" onChange = {this.PasswordChange} required/></td>
-                <Signup_Td_Error>{!this.state.password.valid && this.state.password.error}</Signup_Td_Error>
-            </tr>
-            <tr>
-                <Signup_Td_Label><button className= "button">Signup Submit</button></Signup_Td_Label>
-            </tr>
-            </tbody>
-            </table>
-        </form>
-        </div>
+        <Main_Signin_Div>
+        <Signin_info_div>
+        manage your money now
+        </Signin_info_div>
+        <Signup_Div>
+            <SingUp_h1>Sign Up</SingUp_h1>
+            <Signup_Form_Div>
+                <Signup_Form  onSubmit= {this.onSubmit}>
+                    <table>
+                    <tbody>
+                    <tr>
+                        <td><SignUp_Input type = "text" name = "Name"  id="name" placeholder="Name" onChange = {this.NameChange} required /> </td>
+                        <Signup_Td_Error>{!this.state.name.valid && this.state.name.error}</Signup_Td_Error>
+                    </tr>
+                    <tr>
+                        <td><SignUp_Input type = "text" name = "Username" id="username" placeholder="Username" onChange = {this.UserNameChange} required /></td>
+                        <Signup_Td_Error>{!this.state.username.valid && this.state.username.error}</Signup_Td_Error>
+                    </tr>
+                    <tr>
+                        <td><SignUp_Input type = "email" name = "Email" id= "email" placeholder="Email"  onChange = {this.EmailChange} required/></td>
+                        <Signup_Td_Error>{!this.state.email.valid && this.state.email.error}</Signup_Td_Error>
+                    </tr>
+                    <tr>
+                        <td><SignUp_Input type = "password" name = "Password" id="password" placeholder="Password" onChange = {this.PasswordChange} required/></td>
+                        <Signup_Td_Error>{!this.state.password.valid && this.state.password.error}</Signup_Td_Error>
+                    </tr>
+                    <tr>
+                        <Signup_Td_Label><button className= "button">Signup</button></Signup_Td_Label>
+                    </tr>
+                    </tbody>
+                    </table>
+                </Signup_Form>
+            </Signup_Form_Div>
+        </Signup_Div>
+        </Main_Signin_Div>
     );
 
 }

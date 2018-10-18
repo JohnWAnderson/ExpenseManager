@@ -18,6 +18,9 @@ import styled from 'styled-components';
 const Main_app = styled.div`
 padding: 0;
 height: 100%;
+min-height: 100%;
+overflow:auto;
+background: #D4D7EF
 `
 
 class App extends React.Component {

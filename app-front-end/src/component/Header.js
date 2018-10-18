@@ -8,6 +8,7 @@ const Main_header = styled.header`
     height: 8%;
     background: #5dade9
     position: relative;
+    min-width: 750px;
 `
 
 const Header_Link = styled(Link)`
@@ -36,6 +37,13 @@ const LogOut_Div = styled.div`
 `
 
 const LogOut_Button = styled.button`
+background: #4a8aba;
+border: none;
+padding: 2px 2px;
+border-radius: 3px;
+text-align: center;
+text-decoration: none;
+display: inline-block;
 `
 
 const LogIn_Div = styled.div`

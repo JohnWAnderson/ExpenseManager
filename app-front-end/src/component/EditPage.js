@@ -5,12 +5,21 @@ import { connect } from 'react-redux';
 import { editItem, removeItem} from '../Redux/Actions/Items';
 import NotFound from './NotFound';
 import getVisableItem from '../Redux/SelectorItemOrder';
+import styled from 'styled-components';
+
+const Main_Div = styled.div`
+    position:relative;
+    min-height: 92%;
+    height: auto;
+`
+
+
 const EditPage = (props) =>{
     const item=props.items[props.match.params.id-1]
     if(!!item){
         const holder = item.name;
         return(
-            <div>
+            <Main_Div>
             <button onClick={()=>{
                 const newItem = ({...item, userName: props.User.currentUser.username})
                 DeleteItem(newItem).then(response => {        
@@ -31,7 +40,7 @@ const EditPage = (props) =>{
                         });
                     }}
                     />
-            </div>
+            </Main_Div>
         );
     }
      else{

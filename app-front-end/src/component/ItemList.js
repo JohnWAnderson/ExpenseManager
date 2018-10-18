@@ -21,6 +21,7 @@ const ItemList_Table = styled.table`
     width: 100%;
 ` 
 //position: relative or absolute;
+//padding: 100px;
 const ItemList_Td = styled.td`
 position: relative;
 `
