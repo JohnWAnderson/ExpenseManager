@@ -13,6 +13,14 @@ const Main_Div = styled.div`
     height: auto;
 `
 
+const Page_Form_Div = styled.div`
+    padding: 0;
+    text-align: center;
+    position: relative;
+    border-bottom: none;
+    width: 70%;
+    margin auto;
+`
 
 const EditPage = (props) =>{
     const item=props.items[props.match.params.id-1]
@@ -20,6 +28,7 @@ const EditPage = (props) =>{
         const holder = item.name;
         return(
             <Main_Div>
+            <Page_Form_Div>
             <button onClick={()=>{
                 const newItem = ({...item, userName: props.User.currentUser.username})
                 DeleteItem(newItem).then(response => {        
@@ -40,6 +49,7 @@ const EditPage = (props) =>{
                         });
                     }}
                     />
+            </Page_Form_Div>
             </Main_Div>
         );
     }

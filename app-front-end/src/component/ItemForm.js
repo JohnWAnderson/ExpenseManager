@@ -5,6 +5,21 @@ import moment from 'moment';
 import { SingleDatePicker } from 'react-dates';
 import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';
+import styled from 'styled-components';
+
+const SignUp_Input = styled.input`
+    margin-bottom: 10px;
+    padding: 2px;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    height: 30px;
+    width: 250px;
+`
+
+const ItemForm_Select = styled.select`
+`
 
 class ItemForm extends React.Component{
     constructor(props){
@@ -152,21 +167,21 @@ class ItemForm extends React.Component{
     render= () =>(
         <div>
             <form  onSubmit= {this.onSubmit}>
-            <label >Name:</label>
-            <input type = "text" placeholder="Name" name = "Name"  id="name" value = {this.state.name.value} onChange = {this.NameChange} /> 
+            <label >Name:  </label>
+            <SignUp_Input type = "text" placeholder="Name" name = "Name"  id="name" value = {this.state.name.value} onChange = {this.NameChange} /> 
             {!!this.state.name.error && this.state.name.error}
             <br/>
             <label >Cost: $</label>
-            <input type = "number" placeholder="Cost" name = "Cost" id="cost" value = {this.state.cost.value} onChange = {this.CostChange} />
+            <SignUp_Input type = "number" placeholder="1.00" name = "Cost" id="cost" value = {this.state.cost.value} onChange = {this.CostChange} />
             {!!this.state.cost.error && this.state.cost.error}
             <br/>
-            <SingleDatePicker date ={this.state.duedate} onDateChange={this.onDateChange} focused = {this.state.CalFocuse} onFocusChange={this.onFocusChange} numberOfMonths={1} isOutsideRange={()=> false}/>
+            <label >Note:  </label>
+            <SignUp_Input type = "text" name = "Description"  id= "description" value = {this.state.description.value} onChange = {this.descriptionChange} placeholder="description (Optional)"/>  
             <br/>
-            <label >description:</label>
-            <input type = "text" name = "Description"  id= "description" value = {this.state.description.value} onChange = {this.descriptionChange} placeholder="description (Optional)"/>      
+            <SingleDatePicker date ={this.state.duedate} onDateChange={this.onDateChange} focused = {this.state.CalFocuse} onFocusChange={this.onFocusChange} numberOfMonths={1} isOutsideRange={()=> false}/>    
             <br/>   
             <label >Is this cost Recurring:</label>
-            <select value={this.state.recurring} onChange={(e) => {     
+            <ItemForm_Select value={this.state.recurring} onChange={(e) => {     
                 if(e.target.value === 'true'){
                     this.handleRecurringChange(true);
                     if(this.state.recurringsize)
@@ -181,7 +196,7 @@ class ItemForm extends React.Component{
             }}>>
                 <option value='true'>yes</option>
                 <option value = 'false'>no</option>
-            </select>
+            </ItemForm_Select>
             {this.state.recurring && <div> 
                 <label >Select rate of recurrence:</label>
                 <select value={this.state.recurringsize} onChange={(e) => {     
@@ -193,7 +208,10 @@ class ItemForm extends React.Component{
                         this.handlerecurringsizeChange('monthly');
                     else if(e.target.value === 'daily')
                         this.handlerecurringsizeChange('daily');
+                    else
+                        this.handlerecurringsizeChange('daily');//will change for error handling
                 }}>>
+                    <option value = 'Select Type:'>Select Type:</option>
                     <option value = 'daily'>daily</option>
                     <option value = 'weekly'>weekly</option>
                     <option value = 'biweekly'>bi-weekly</option>

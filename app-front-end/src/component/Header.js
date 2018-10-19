@@ -57,12 +57,12 @@ const Header =(props)=>{
     <Main_header>
         <Header_h1>
         <Header_Link to="/">
-            Item Manager
+            Expense Manager
         </Header_Link>
         </Header_h1>
     {(props.User.isAuthenticated) ?
             <LogOut_Div>
-            <LogOut_Text_Div>Hello, {props.User.currentUser.username}</LogOut_Text_Div>
+            <LogOut_Text_Div>Hello, {props.User.currentUser.name}</LogOut_Text_Div>
             <LogOut_Button onClick = {props.handleLogOut}>LogOut</LogOut_Button>
             </LogOut_Div> :
             <LogIn_Div><Login handleLogOn={props.handleLogOn}/></LogIn_Div>}
