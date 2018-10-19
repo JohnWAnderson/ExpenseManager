@@ -7,13 +7,13 @@ import NotFound from './NotFound';
 import getVisableItem from '../Redux/SelectorItemOrder';
 import styled from 'styled-components';
 
-const Main_Div = styled.div`
+const MainDiv = styled.div`
     position:relative;
     min-height: 92%;
     height: auto;
 `
 
-const Page_Form_Div = styled.div`
+const PageFormDiv = styled.div`
     padding: 0;
     text-align: center;
     position: relative;
@@ -27,8 +27,8 @@ const EditPage = (props) =>{
     if(!!item){
         const holder = item.name;
         return(
-            <Main_Div>
-            <Page_Form_Div>
+            <MainDiv>
+            <PageFormDiv>
             <button onClick={()=>{
                 const newItem = ({...item, userName: props.User.currentUser.username})
                 DeleteItem(newItem).then(response => {        
@@ -49,8 +49,8 @@ const EditPage = (props) =>{
                         });
                     }}
                     />
-            </Page_Form_Div>
-            </Main_Div>
+            </PageFormDiv>
+            </MainDiv>
         );
     }
      else{

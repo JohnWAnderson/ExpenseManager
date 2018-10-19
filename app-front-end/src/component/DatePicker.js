@@ -6,24 +6,13 @@ import PageInformation from './PageInformation';
 import styled from 'styled-components';
 import Signup from '../Account/Signup';
 
-const Box_Div = styled.div`
-    position:absolute;
-    border-radius: 5px;
-    align: center;
-    text-align: center;
-    padding: 2rem 3 rem;   
-    top: auto;
-    center: 0px; 
-    height: auto;
-`
-
-const Main_Div = styled.div`
+const MainDiv = styled.div`
     position:relative;
     min-height: 92%;
     height: auto;
 `
 
-const Main_Signup_Block = styled.div`
+const MainSignupBlock = styled.div`
     position:relative;
     border-radius: 5px;
     padding-top: 20px;
@@ -33,7 +22,7 @@ const Main_Signup_Block = styled.div`
     width: 70%; 
     height: calc(92vh - 40px);
 `
-const App_DashBoard = styled.div`
+const AppDashBoard = styled.div`
     padding: 0;
     align: center;
     text-align: center;
@@ -44,17 +33,17 @@ const App_DashBoard = styled.div`
 
 const DatePicker= (props) =>{ 
         return(
-            <Main_Div>
+            <MainDiv>
             {(props.User.isAuthenticated) ?
-                <App_DashBoard>
+                <AppDashBoard>
                     <FilterPicker/>
                     <PageInformation/>
                     <ItemList/>
-                </App_DashBoard> :
-                <Main_Signup_Block>
+                </AppDashBoard> :
+                <MainSignupBlock>
                         <Signup/>
-                </Main_Signup_Block>} 
-            </Main_Div>
+                </MainSignupBlock>} 
+            </MainDiv>
         );
 }
 

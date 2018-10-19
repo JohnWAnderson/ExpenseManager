@@ -7,7 +7,7 @@ import 'react-dates/lib/css/_datepicker.css';
 import 'react-dates/initialize';
 import styled from 'styled-components';
 
-const SignUp_Input = styled.input`
+const SignUpInput = styled.input`
     margin-bottom: 10px;
     padding: 2px;
     display: inline-block;
@@ -18,7 +18,7 @@ const SignUp_Input = styled.input`
     width: 250px;
 `
 
-const ItemForm_Select = styled.select`
+const ItemFormSelect = styled.select`
 `
 
 class ItemForm extends React.Component{
@@ -168,20 +168,20 @@ class ItemForm extends React.Component{
         <div>
             <form  onSubmit= {this.onSubmit}>
             <label >Name:  </label>
-            <SignUp_Input type = "text" placeholder="Name" name = "Name"  id="name" value = {this.state.name.value} onChange = {this.NameChange} /> 
+            <SignUpInput type = "text" placeholder="Name" name = "Name"  id="name" value = {this.state.name.value} onChange = {this.NameChange} /> 
             {!!this.state.name.error && this.state.name.error}
             <br/>
             <label >Cost: $</label>
-            <SignUp_Input type = "number" placeholder="1.00" name = "Cost" id="cost" value = {this.state.cost.value} onChange = {this.CostChange} />
+            <SignUpInput type = "number" placeholder="1.00" name = "Cost" id="cost" value = {this.state.cost.value} onChange = {this.CostChange} />
             {!!this.state.cost.error && this.state.cost.error}
             <br/>
             <label >Note:  </label>
-            <SignUp_Input type = "text" name = "Description"  id= "description" value = {this.state.description.value} onChange = {this.descriptionChange} placeholder="description (Optional)"/>  
+            <SignUpInput type = "text" name = "Description"  id= "description" value = {this.state.description.value} onChange = {this.descriptionChange} placeholder="description (Optional)"/>  
             <br/>
             <SingleDatePicker date ={this.state.duedate} onDateChange={this.onDateChange} focused = {this.state.CalFocuse} onFocusChange={this.onFocusChange} numberOfMonths={1} isOutsideRange={()=> false}/>    
             <br/>   
             <label >Is this cost Recurring:</label>
-            <ItemForm_Select value={this.state.recurring} onChange={(e) => {     
+            <ItemFormSelect value={this.state.recurring} onChange={(e) => {     
                 if(e.target.value === 'true'){
                     this.handleRecurringChange(true);
                     if(this.state.recurringsize)
@@ -196,7 +196,7 @@ class ItemForm extends React.Component{
             }}>>
                 <option value='true'>yes</option>
                 <option value = 'false'>no</option>
-            </ItemForm_Select>
+            </ItemFormSelect>
             {this.state.recurring && <div> 
                 <label >Select rate of recurrence:</label>
                 <select value={this.state.recurringsize} onChange={(e) => {     

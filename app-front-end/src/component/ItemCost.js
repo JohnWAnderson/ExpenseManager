@@ -1,28 +1,28 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const ItemCostPart_DIV =styled.div`
+const ItemCostPartDIV =styled.div`
     display: inline-block;
     vertical-align: top;
     width: 33%;
     height: 100%;
 `
 
-const ItemCost_Div = styled.div`
+const ItemCostDiv = styled.div`
     border: 1px solid black;
     position: relative;
     display: block;
 `   
 
 const ItemCost = (props) => (
-    <ItemCost_Div>
-        <ItemCostPart_DIV>
+    <ItemCostDiv>
+        <ItemCostPartDIV>
             ${props.cost/100 * props.times} 
-        </ItemCostPart_DIV>
-        <ItemCostPart_DIV>
+        </ItemCostPartDIV>
+        <ItemCostPartDIV>
             ${props.cost/100 * props.times} 
-        </ItemCostPart_DIV>
-    </ItemCost_Div>
+        </ItemCostPartDIV>
+    </ItemCostDiv>
    );
    
    

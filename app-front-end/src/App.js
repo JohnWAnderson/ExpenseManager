@@ -15,7 +15,7 @@ import DatePicker from './component/DatePicker';
 import {TimesItemChange} from './Redux/TimesChange';
 import styled from 'styled-components';
 
-const Main_app = styled.div`
+const MainApp = styled.div`
 padding: 0;
 height: 100%;
 min-height: 100%;
@@ -64,7 +64,7 @@ loadItems = () =>{
 
   render=()=>(
     <BrowserRouter>
-        <Main_app className='app'>
+        <MainApp className='app'>
             <Header handleLogOut= {this.handleLogOut} handleLogOn={this.handleLogOn}/>
             <Switch>
                 <Route path="/" component = {DatePicker} exact={true}/>
@@ -72,7 +72,7 @@ loadItems = () =>{
                 <PrivateRoute path="/add" component={AddPage} isAuthenticated={this.props.User.user.isAuthenticated}/> 
                 <Route component= {NotFound}/>
             </Switch>
-        </Main_app>
+        </MainApp>
       </BrowserRouter>
   );
 };

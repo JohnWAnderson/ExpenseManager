@@ -2,18 +2,19 @@ import React from 'react';
 import { signin, ACCESS_TOKEN } from '../ApiMethods/Account';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-const Login_Input = styled.input`
+
+const LoginInput = styled.input`
 margin: 2px 0;
 display: inline-block;
 border: 1px solid #ccc;
 border-radius: 5px;
 box-sizing: border-box;
 `
-const Login_Label_Td = styled.td`
+const LoginLabelTd = styled.td`
 text-align: center ;
 `
 
-const Login_Button = styled.button`
+const LoginButton = styled.button`
 background: #4a8aba;
 border: none;
 padding: 2px 2px;
@@ -43,13 +44,13 @@ const Login =(props)=> {
                 <table>
                 <tbody>
                     <tr>
-                        <Login_Label_Td><label >Username or Email</label></Login_Label_Td>
-                        <Login_Label_Td><label >Password</label></Login_Label_Td>
+                        <LoginLabelTd><label >Username or Email</label></LoginLabelTd>
+                        <LoginLabelTd><label >Password</label></LoginLabelTd>
                     </tr>
                     <tr>
-                        <td><Login_Input type = "text" name = "username" onChange = {this.UserNameChange} required/></td>
-                        <td><Login_Input type = "password" name = "password" onChange = {this.PasswordChange} required/></td>
-                        <td><Login_Button className= "button">Login Submit</Login_Button></td>
+                        <td><LoginInput type = "text" name = "username" onChange = {this.UserNameChange} required/></td>
+                        <td><LoginInput type = "password" name = "password" onChange = {this.PasswordChange} required/></td>
+                        <td><LoginButton className= "button">Login Submit</LoginButton></td>
                     </tr>
                 </tbody>
                 </table>

@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import getVisableItem from '../Redux/SelectorItemOrder';
 import styled from 'styled-components';
 
-const ItemList_Div = styled.div`
+const ItemListDiv = styled.div`
     padding: 0;
     text-align: center;
     position: relative;
@@ -13,7 +13,7 @@ const ItemList_Div = styled.div`
     width: 70%;
     margin auto;
 `
-const ItemList_Table = styled.table`
+const ItemListTable = styled.table`
     position: relative;
     margin: 0 auto;
     padding: 0;
@@ -22,21 +22,21 @@ const ItemList_Table = styled.table`
 ` 
 //position: relative or absolute;
 //padding: 100px;
-const ItemList_Td = styled.td`
+const ItemListTd = styled.td`
 position: relative;
 `
 
 const ItemList =(props)=>{
     console.log(props.items);
     return(
-        <ItemList_Div>
-            <ItemList_Table>
+        <ItemListDiv>
+            <ItemListTable>
             <tbody>
                     {props.items.map((item,index)=>{
-                        return(<tr><ItemList_Td><Item key={index} {...item} index={index+1}/></ItemList_Td></tr>)})}
+                        return(<tr><ItemListTd><Item key={index} {...item} index={index+1}/></ItemListTd></tr>)})}
             </tbody>
-            </ItemList_Table>
-        </ItemList_Div>
+            </ItemListTable>
+        </ItemListDiv>
     );
 }
 

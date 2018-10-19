@@ -5,12 +5,12 @@ import { connect } from 'react-redux';
 import { addItem } from '../Redux/Actions/Items';
 import styled from 'styled-components';
 
-const Main_Div = styled.div`
+const MainDiv = styled.div`
     position:relative;
     min-height: 92%;
     height: auto;
 `
-const Page_Form_Div = styled.div`
+const PageFormDiv = styled.div`
     padding: 0;
     text-align: center;
     position: relative;
@@ -19,7 +19,7 @@ const Page_Form_Div = styled.div`
     margin auto;
 `
 
-const Page_Form_H1 = styled.h1`
+const PageFormH1 = styled.h1`
     text-align: center ;
     padding-bottom: 25px;
     padding-left: 2px;
@@ -28,9 +28,9 @@ const Page_Form_H1 = styled.h1`
 const AddPage = (props) =>{
     console.log(props);
     return(
-    <Main_Div>
-        <Page_Form_Div>
-        <Page_Form_H1>Add Item</Page_Form_H1>
+    <MainDiv>
+        <PageFormDiv>
+        <PageFormH1>Add Item</PageFormH1>
         <ItemForm
             onSubmit={(item) => {
                 // props.dispatch(addItem(item))
@@ -43,8 +43,8 @@ const AddPage = (props) =>{
                 });
             }}
         />
-        </Page_Form_Div>
-    </Main_Div>
+        </PageFormDiv>
+    </MainDiv>
     );
 };
 
