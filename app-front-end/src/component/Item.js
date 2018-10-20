@@ -36,7 +36,7 @@ const Item = (props) => (
         <ItemH3>
         {props.name}
         <HeaderLink to={`/edit/${props.index}`}>
-            <text>edit</text>
+            <div>edit</div>
         </HeaderLink>
         </ItemH3>
     </ItemPartDiv>

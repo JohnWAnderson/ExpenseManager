@@ -33,7 +33,7 @@ const ItemList =(props)=>{
             <ItemListTable>
             <tbody>
                     {props.items.map((item,index)=>{
-                        return(<tr><ItemListTd><Item key={index} {...item} index={index+1}/></ItemListTd></tr>)})}
+                        return(<tr key={index}><ItemListTd key={index}><Item key={index} {...item} index={index+1}/></ItemListTd></tr>)})}
             </tbody>
             </ItemListTable>
         </ItemListDiv>

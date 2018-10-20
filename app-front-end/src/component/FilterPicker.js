@@ -37,6 +37,8 @@ class FilterPicker extends React.Component{
         return(
             <div>
             <DateRangePicker
+            startDateId= "start"
+            endDateId= "end"
             startDate={moment(this.props.Filter.startDate)}
             endDate={moment(this.props.Filter.endDate)}
             onDatesChange={this.onDatesChange}
