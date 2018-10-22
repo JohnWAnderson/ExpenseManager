@@ -28,6 +28,7 @@ const HeaderH1 = styled.h1`
 const LogOutTextDiv = styled.div`
     font-size: 30px;
     padding-right: 10px;
+    display: inline-block;
 `
 
 const LogOutDiv = styled.div`

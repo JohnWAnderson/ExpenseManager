@@ -7,6 +7,7 @@ const ItemDiv = styled.div`
     border: 1px solid black;
     position: relative;
     display: block;
+    height: 100%;
 `   
 const HeaderLink = styled(Link)`
     color: blue;
@@ -19,7 +20,8 @@ const HeaderLink = styled(Link)`
 
 const ItemPartDiv =styled.div`
     display: inline-block;
-    vertical-align: top;
+    vertical-align: center;
+    position: relative;
     width: 33%;
     height: 100%;
 `
@@ -27,7 +29,7 @@ const ItemPartDiv =styled.div`
 const ItemH3 = styled.h3`
     text-align:left;
     position: relative;
-    font-size: 26px;
+    font-size: 30px;
     margin: 0;
 `   
 const Item = (props) => (

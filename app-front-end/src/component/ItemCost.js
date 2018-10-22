@@ -4,14 +4,15 @@ import styled from 'styled-components';
 const ItemCostPartDIV =styled.div`
     display: inline-block;
     vertical-align: top;
+    align: center;
     width: 33%;
     height: 100%;
 `
 
 const ItemCostDiv = styled.div`
-    border: 1px solid black;
     position: relative;
     display: block;
+    height: 100%;
 `   
 
 const ItemCost = (props) => (
@@ -20,7 +21,7 @@ const ItemCost = (props) => (
             { props.times > 1 ? <div>${props.cost/100} Recurring:{props.times}</div> : <div></div>}
         </ItemCostPartDIV>
         <ItemCostPartDIV>
-            ${props.cost/100 * props.times} 
+            ${parseFloat(props.cost/100 * props.times).toFixed(2)} 
         </ItemCostPartDIV>
     </ItemCostDiv>
    );

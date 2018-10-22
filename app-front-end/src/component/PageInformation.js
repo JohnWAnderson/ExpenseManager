@@ -1,20 +1,32 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import {NavLink} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import getSelectorSum from '../Redux/SelectorSum';
 import getVisableItem from '../Redux/SelectorItemOrder';
+import styled from 'styled-components';
+
+const HeaderLink = styled(Link)`
+    color: green;
+    text-decoration: none;
+    font-family: Georgia;
+    text-align: left ;
+    position: reletive;
+`
+const HeaderH1 = styled.h1`
+    font-size: 20px;
+`
+
 const getVisableItemNumber = (props) =>{
     return(
         <div>
-        {props.Items.length > 0 ? 
             <div>
-            <p>Page contains {props.Items.length} which totals to ${props.Sum/100}</p>
-            <NavLink to="/add" activeClassName="is-active" exact={true} > add Page </NavLink> 
-            </div>:
-            <div>
-            <p>Page contains no items</p>
-            <NavLink to="/add" activeClassName="is-active" exact={true} > add Page </NavLink>
-            </div>}
+                {props.Items.length > 0 ? 
+                <p>Page contains {props.Items.length} which totals to ${props.Sum/100}</p>:
+                <p>Page contains no items</p>}
+            </div>
+            <HeaderH1>
+                <HeaderLink to="/add" activeClassName="is-active" exact={true} > Add Item </HeaderLink> 
+            </HeaderH1>
         </div>
     );
 }

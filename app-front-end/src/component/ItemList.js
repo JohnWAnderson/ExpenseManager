@@ -11,6 +11,7 @@ const ItemListDiv = styled.div`
     border: 20px solid black;
     border-bottom: none;
     width: 70%;
+    min-width: 750px;
     margin auto;
 `
 const ItemListTable = styled.table`
@@ -24,6 +25,8 @@ const ItemListTable = styled.table`
 //padding: 100px;
 const ItemListTd = styled.td`
 position: relative;
+padding-top: 5px;
+padding-bottom: 5px;
 `
 
 const ItemList =(props)=>{
